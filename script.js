@@ -1,4 +1,4 @@
-{ top: 20, right: 0, bottom: 0, left: 0 },
+var padding = { top: 20, right: 0, bottom: 0, left: 0 },
   w = 300 - padding.left - padding.right,
   h = 300 - padding.top - padding.bottom,
   r = Math.min(w, h) / 2,

@@ -202,7 +202,6 @@
         };
 
         console.log("Survey Data:", surveyData);
-        alert("Thank you for your feedback!");
     }
 
     function showErrorMessage(message) {

@@ -214,26 +214,24 @@
 
         document.getElementById("error-message").style.display = "none";
 
-        // const surveyData = {
-        //     rating: selectedRating,
-        //     reasons: reasons,
-        //     feedback: selectedRating === "neutral" ? document.getElementById("neutral-textarea").value.trim() : otherFeedbackText,
-        // };
-        // console.log("Survey Data:", surveyData);
+        const surveyData = {
+            rating: selectedRating,
+            reasons: reasons,
+            feedback: selectedRating === "neutral" ? document.getElementById("neutral-textarea").value.trim() : otherFeedbackText,
+        };
+        console.log("Survey Data:", surveyData);
 
        try {
             weNotification.trackEvent(
                 "Rating  Submitted",
                 JSON.stringify({
-                rating: selectedRating,
+            rating: selectedRating,
             reasons: reasons,
             feedback: selectedRating === "neutral" ? document.getElementById("neutral-textarea").value.trim() : otherFeedbackText,
                 })
             );
         } catch (err) {
             console.log("error at selected rating", err);
-            console.log("Rating  Submitted Survey Data:", surveyData);
-
         }
 
 

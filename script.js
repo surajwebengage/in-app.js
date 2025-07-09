@@ -233,10 +233,6 @@
         } catch (err) {
             console.log("error at selected rating", err);
         }
-
-
-
-
      
         showThanks();
     }
@@ -253,6 +249,7 @@
             page.style.display = "block";
             page.addEventListener("click", function () {
                 page.style.display = "none";
+                weNotification.close();
             });
         }
     }

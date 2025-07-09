@@ -8,6 +8,8 @@
     const awesomeReasons = document.getElementById("awesome-reasons");
     const reason_cont = document.getElementById("unhappy-reasons"); // For compatibility with your original code
     const other_feed = document.getElementById("neutral-textarea"); // For compatibility with your original code
+    var page = document.querySelector("#feedback__modal")
+    page.style.display = "none";
 
     // Initialize submit button as disabled
     btnSubmit.disabled = true;

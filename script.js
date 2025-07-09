@@ -221,10 +221,21 @@
         };
 
         console.log("Survey Data:", surveyData);
+        showThanks();
     }
 
     function showErrorMessage(message) {
         const errorMessageElement = document.getElementById("error-message");
         errorMessageElement.innerText = message;
         errorMessageElement.style.display = "block";
+    }
+
+ function showThanks() {
+        if (page) {
+            document.querySelector("#survey-container").style.display = "none";
+            page.style.display = "block";
+            page.addEventListener("click", function () {
+                page.style.display = "none";
+            });
+        }
     }

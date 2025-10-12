@@ -1,4 +1,4 @@
-  var padding = {
+ var padding = {
               top: 20,
               right: 0,
               bottom: 0,
@@ -44,7 +44,7 @@
 
 
 
-                          
+
                           let e = document.querySelector("dialog > div.weWinCont.show > div:nth-child(2) > button.respin-button");
                           oldpick.length == weDATA.length && (e.style.display = "none"), e.addEventListener("click", () => {
                               document.querySelector(".weWinCont.show").classList.remove("show"), document.querySelector(" dialog > div.spinContainer.hide").classList.remove("hide"), document.querySelector("dialog > div.spinContainer.hide").classList.add("show")
@@ -103,15 +103,42 @@
           return t.data.color
       }).attr("stroke", "black").attr("stroke-width", "4").attr("d", function(t) {
           return arc(t)
-      }), arcs.append("text").attr("transform", function(t) {
-          return t.innerRadius = 0, t.outerRadius = r, t.angle = (t.startAngle + t.endAngle) / 2, "rotate(" + (180 * t.angle / Math.PI - 90) + ")translate(" + (t.outerRadius - 30) + ")"
-      }).attr("text-anchor", "end").text(function(t, e) {
-          return weDATA[e].weName
-      }).style({
-          fill: "#000000",
-          "font-size": "14px",
-          "font-weight": "600"
-      }), svg.append("g").attr("transform", "translate(139,0)").append("path").attr("d", "M1 1H31V32.615L16 46.6314L1 32.615V1Z").style({
+      }),arcs.append("text").attr("transform", function(t) {
+    t.innerRadius = 0;
+    t.outerRadius = r;
+    t.angle = (t.startAngle + t.endAngle) / 2;
+    return "rotate(" + (180 * t.angle / Math.PI - 90) + ")translate(" + (t.outerRadius - 50) + ")";}).attr("text-anchor", "middle").each(function(t, e) {
+    const text = d3.select(this);
+    const label = weDATA[e].weName;
+    const words = label.split(" ");
+    const half = Math.ceil(words.length / 2);
+    const line1 = words.slice(0, half).join(" ");
+    const line2 = words.slice(half).join(" ");
+    text.append("tspan")
+      .attr("x", 0)
+      .attr("dy", "0em")
+      .text(line1);
+    if (line2) {
+      text.append("tspan")
+        .attr("x", 0)
+        .attr("dy", "1.2em")
+        .text(line2);
+    }
+  })
+  .style("fill", "rgb(0, 0, 0)")
+  .style("font-size", "14px")
+  .style("font-weight", "600"),
+
+     // arcs.append("text").attr("transform", function(t) {
+        //  return t.innerRadius = 0, t.outerRadius = r, t.angle = (t.startAngle + t.endAngle) / 2, "rotate(" + (180 * t.angle / Math.PI - 90) + ")translate(" + (t.outerRadius - 30) + ")"
+     // }).attr("text-anchor", "end").text(function(t, e) {
+      //    return weDATA[e].weName
+   //   }).style({
+     //    fill: "#000000",
+      //  "font-size": "14px",
+      //  "font-weight": "600"
+    //  }),
+svg.append("g").attr("transform", "translate(139,0)").append("path").attr("d", "M1 1H31V32.615L16 46.6314L1 32.615V1Z").style({
           fill: "white",
           stroke: "#001D34",
           "stroke-width": "2",

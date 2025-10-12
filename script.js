@@ -39,7 +39,7 @@
                           document.querySelector(".weWinCont").classList.add("show");
                           const winBg = weDATA[picked].weBg;
                         if (winBg) {
-                              document.querySelector(".weWinCont").style.background = `url(${winBg}) no-repeat center center / cover`;
+                              document.querySelector(".weWinCont").style.background = `url(${winBg}) no-repeat center center / contain`;
                            }
 
 

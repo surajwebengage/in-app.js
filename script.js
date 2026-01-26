@@ -36,7 +36,7 @@ function Winwheel(a, b) {
     this.segments = Array(null);
     for (x = 1; x <= this.numSegments; x++) this.segments[x] = null != a && a.segments && "undefined" !== typeof a.segments[x - 1] ? new Segment(a.segments[x - 1]) : new Segment;
     this.updateSegmentSizes();
-    null === this.textMargin && (this.textMargin = this.textFontSize / 1.7);
+    null === this.textMargin && (this.textMargin = this.textFontSize);
     this.animation = null != a && a.animation && "undefined" !== typeof a.animation ? new Animation(a.animation) : new Animation;
     null != a && a.pins && "undefined" !== typeof a.pins && (this.pins = new Pin(a.pins));
     "image" == this.drawMode || "segmentImage" == this.drawMode ? ("undefined" === typeof a.fillStyle && (this.fillStyle = null), "undefined" === typeof a.strokeStyle && (this.strokeStyle = "red"), "undefined" === typeof a.drawText && (this.drawText = !1), "undefined" === typeof a.lineWidth && (this.lineWidth = 1), "undefined" === typeof b && (b = !1)) : "undefined" === typeof b && (b = !0);

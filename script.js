@@ -122,7 +122,7 @@ let userData = {};
                     <div style="animation: fadeIn 0.5s; text-align: center;">
                         <h2 style="color: #f6d487; font-size: 28px; margin-bottom: 15px;">CONGRATULATIONS! 🎉</h2>
                         <div style="font-size: 32px; font-weight: bold; color: white; margin: 20px 0;">YOU'VE WON ${result.weName}</div>
-                        <p style="margin: 20px 0; font-size: 16px; color: rgba(255,255,255,0.9);">You will receive the code via WhatsApp shortly.</p>
+                        <p style="margin: 20px 0; font-size: 16px; color: rgba(255,255,255,0.9);">You will receive the code via WhatsApp/Email shortly.</p>
                     </div>
                 `;
             } else {

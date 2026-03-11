@@ -1,4 +1,4 @@
- let userData = {};
+let userData = {};
         var weDATA = [
             { "weName": "5 KWD", "weWin": "yes", "color": "#ffffff", "wePercWght": 30 },
             { "weName": "7 KWD", "weWin": "yes", "color": "#ffffff", "wePercWght": 30 },

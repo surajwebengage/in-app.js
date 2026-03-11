@@ -1,4 +1,4 @@
-let userData = {};
+ let userData = {};
         var weDATA = [
             { "weName": "5 KWD", "weWin": "yes", "color": "#ffffff", "wePercWght": 30 },
             { "weName": "7 KWD", "weWin": "yes", "color": "#ffffff", "wePercWght": 30 },
@@ -70,54 +70,41 @@ let userData = {};
         }
         
         function spinWheel() {
-    var weights = {};
-    for (var i = 0; i < weDATA.length; i++) {
-        weights[i] = weDATA[i].wePercWght;
-    }
-
-    var index = weightedRandom(weights)();
-    var ps = 360 / weDATA.length;
-
-    // FIX: add ps/2 so pointer lands in center of slice
-    rotation = 1440 + (weDATA.length - index) * ps + (ps / 2);
-
-    vis.transition().duration(4000).attrTween("transform", function() {
-        var i = d3.interpolate(oldrotation, rotation);
-        return function(t) { 
-            return "rotate(" + i(t) + ")"; 
-        };
-    }).each("end", function() {
-
-        oldrotation = rotation;
-        var result = weDATA[index];
-        currentPrize = result.weName;
-
-        showResult(result);
-
-        try {
-            if (typeof weNotification !== 'undefined') {
-                weNotification.trackEvent(
-                    "KSA onsite- spin the wheel click",
-                    JSON.stringify({
-                        name: userData.name,
-                        email: userData.email,
-                        phone: userData.phone,
-                        prize: result.weName,
-                        win: result.weWin
-                    }),
-                    false
-                );
+            var weights = {};
+            for (var i = 0; i < weDATA.length; i++) {
+                weights[i] = weDATA[i].wePercWght;
             }
-        } catch (e) {
-            console.log("Spin result:", {
-                user: userData,
-                prize: result.weName,
-                win: result.weWin
+
+            var index = weightedRandom(weights)();
+            var ps = 360 / weDATA.length;
+            rotation = 1440 + (weDATA.length - index) * ps;
+
+            vis.transition().duration(4000).attrTween("transform", function() {
+                var i = d3.interpolate(oldrotation, rotation);
+                return function(t) { return "rotate(" + i(t) + ")"; };
+            }).each("end", function() {
+                oldrotation = rotation;
+                var result = weDATA[index];
+                currentPrize = result.weName;
+                
+                showResult(result);
+                
+                try {
+                    if (typeof weNotification !== 'undefined') {
+                        weNotification.trackEvent("KSA onsite- spin the wheel click", JSON.stringify({
+                            name: userData.name,
+                            email: userData.email,
+                            phone: userData.phone,
+                            prize: result.weName,
+                            win: result.weWin
+                        }), false);
+                    }
+                } catch (e) {
+                    console.log("Spin result:", { user: userData, prize: result.weName, win: result.weWin });
+                }
             });
         }
-
-    });
-}
+        
         function showResult(result) {
             var resultContainer = document.getElementById("resultContainer");
             var spinWheel = document.getElementById("weSpinWheel");
@@ -135,7 +122,7 @@ let userData = {};
                     <div style="animation: fadeIn 0.5s; text-align: center;">
                         <h2 style="color: #f6d487; font-size: 28px; margin-bottom: 15px;">CONGRATULATIONS! 🎉</h2>
                         <div style="font-size: 32px; font-weight: bold; color: white; margin: 20px 0;">YOU'VE WON ${result.weName}</div>
-                        <p style="margin: 20px 0; font-size: 16px; color: rgba(255,255,255,0.9);">You will receive the code via WhatsApp/Email shortly.</p>
+                        <p style="margin: 20px 0; font-size: 16px; color: rgba(255,255,255,0.9);">You will receive the code via WhatsApp shortly.</p>
                     </div>
                 `;
             } else {

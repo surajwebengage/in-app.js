@@ -1,4 +1,4 @@
- document.getElementById("userPhone").addEventListener("focus", function () {
+document.getElementById("userPhone").addEventListener("focus", function () {
     if (this.value.trim() === "") {
         this.value = "+965";
     }
@@ -6,14 +6,15 @@
 
         let userData = {};
         var weDATA = [
-            { "weName": "5 KWD", "weWin": "yes", "color": "#ffffff", "wePercWght": 30 },
-            { "weName": "7 KWD", "weWin": "yes", "color": "#ffffff", "wePercWght": 30 },
-            { "weName": "10 KWD", "weWin": "yes", "color": "#f6d487", "wePercWght": 20 },
-            { "weName": "TRY AGAIN", "weWin": "no", "color": "#ffffff", "wePercWght": 20 }
+            { "weName": "5 KWD", "weCode": "WEBENGAGE100", "weWin": "yes", "color": "#ffffff", "wePercWght": 30 },
+            { "weName": "7 KWD",  "weCode": "WEBENGAGE100", "weWin": "yes", "color": "#ffffff", "wePercWght": 30 },
+            { "weName": "10 KWD",  "weCode": "WEBENGAGE100", "weWin": "yes", "color": "#f6d487", "wePercWght": 20 },
+            { "weName": "TRY AGAIN",  "weCode": "WEBENGAGE100", "weWin": "no", "color": "#ffffff", "wePercWght": 20 }
         ];
         var w = 260, h = 260, r = 130;
         var rotation = 0, oldrotation = -45;
         var currentPrize = "";
+        var couponCode = "";
 
         var svg = d3.select("#weSpinWheel").append("svg").attr("width", w).attr("height", h);
         var container = svg.append("g").attr("transform", "translate(" + w / 2 + "," + h / 2 + ")");
@@ -130,6 +131,7 @@ if (!isValid) return;
                 oldrotation = rotation;
                 var result = weDATA[index];
                 currentPrize = result.weName;
+                couponCode = result.weCode
                 
                 showResult(result);
                 
@@ -139,8 +141,10 @@ if (!isValid) return;
                             name: userData.name,
                             email: userData.email,
                             phone: userData.phone,
-                            prize: result.weName,
-                            win: result.weWin
+                            offerWon: result.weName,
+                            win: result.weWin,
+                            couponCode: result.weCode
+                            
                         }), false);
                     }
                 } catch (e) {

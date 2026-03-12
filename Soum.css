@@ -1,0 +1,338 @@
+ .n-preview-close {
+            z-index: 999999999;
+        }
+
+
+        *,
+        *::after,
+        *::before {
+            margin: 0;
+            padding: 0;
+        }
+
+        html * {
+            font-family: "Inter", sans-serif;
+        }
+
+        .main::before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: #fbd8c7;
+        }
+
+        text {
+            color: #04196c;
+        }
+
+
+
+  #weSpinWheel > svg > g.spinner > g > g:nth-child(1) > text {
+    fill: #ffffff !important;
+}
+
+        .n-preview-img-wrapper {
+            height: 100% !important;
+            max-height: 100%;
+            width: 100%;
+            margin: 0;
+        }
+
+        .main {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+            border: none;
+        }
+
+        .main::before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: #fff
+        }
+
+        .main>img {
+            align-self: flex-end;
+            padding: 2em;
+            cursor: pointer;
+            position: absolute;
+            top: 0;
+        }
+
+        .spinContainer {
+            display: grid;
+            width: 100%;
+            grid-template-columns: 1fr;
+            grid-template-rows: 1fr 1fr 270px 1fr;
+            grid-gap: 10px;
+            justify-items: center;
+            position: relative;
+        }
+
+        .weWinCont,
+        .welostCont {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            row-gap: 4em;
+            z-index: 999;
+        }
+
+        p {
+            font-size: 16px;
+            font-weight: 450;
+            color: #1E1E1E;
+        }
+
+        button.spin-button,
+        button.respin-button {
+            width: 215px;
+            border: 1px solid black;
+            display: inline-flex;
+            justify-content: center;
+            border-radius: 6px;
+            color: #00d0cd;
+            background: #04196c;
+            height: 48px;
+            font-size: 17px;
+            line-height: 32px;
+            box-shadow: 0 4px 2px -1px #000000;
+            gap: 5px;
+            cursor: pointer;
+            justify-items: center;
+            grid-row: 8 / 8;
+                direction: rtl;
+        }
+
+        h2 {
+            grid-row: 2 / 3;
+            font-style: normal;
+            font-weight: 600;
+            font-size: 24px;
+            line-height: 140%;
+            color: #04196c;
+            font-family: "Graphik Arabic";
+            text-align: center;
+                direction: rtl;
+        }
+
+        h4 {
+            grid-row: 3 / 4;
+            font-weight: 450;
+            color: #475467;
+            font-size: 15px;
+            width: 75%;
+            text-align: center;
+            margin: 0;
+        }
+
+        span {
+            display: block;
+            text-transform: capitalize;
+        }
+
+        code {
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            padding: 20px;
+            border-radius: 4px;
+            width: 100%;
+            /* height: 44px; */
+            background-image: url('https://afiles.webengage.com/11b564b63/fe92c896-3ac8-4403-a955-264ea53e9843.png');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            box-shadow: 0 0 0 2px #fff inset;
+            box-sizing: border-box;
+        }
+
+        code>p {
+            font-family: inter;
+            color: #031a6b;
+            font-size: 24px;
+            font-weight: 450;
+        }
+
+        code img {
+            cursor: pointer;
+            width: 30px;
+                filter: brightness(0) saturate(100%);
+        }
+
+        code>span {
+            display: none;
+            color: #000000;
+            background: white;
+            font-size: 14px;
+            position: absolute;
+            border-radius: 2px;
+            padding: 5px;
+            bottom: -15px;
+            right: 10px;
+        }
+
+        code+p {
+            font-size: 12px;
+        }
+
+        .spinContainer>p {
+            grid-row: 7 / 8;
+            color: #000000;
+            font-size: 13px;
+        }
+
+        .spinContainer h2+h4+div+p {
+            font-size: 11px;
+            font-family: "Inter", sans-serif;
+        }
+
+        #weSpinWheel {
+            grid-column: 1 / 2;
+            grid-row: 5 / 6;
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            bottom: 15px;
+            left: auto;
+        }
+
+        #weSpinWheel::after {
+            content: '';
+            position: absolute;
+            top: 44px;
+            left: 18px;
+            border-radius: 50%;
+            width: calc(100% - 70px);
+            height: calc(100% - 70px);
+            border: 1em solid white;
+            box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25), 2px 2px 2px rgba(0, 0, 0, 0.25);
+            z-index: -10;
+        }
+
+        div.wheel-stand-container {
+            grid-row: 5 / 7;
+        }
+
+        #weSpinWheel svg {
+            width: min-content;
+            height: 101%;
+            grid-column: 1 / 2;
+            grid-row: 1 / -1;
+        }
+
+        .weWinCont,
+        .welostCont {
+            display: none;
+        }
+
+        .weWinCont>p>span {
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .welostCont>button {
+            margin-top: 2em;
+        }
+
+        .hide {
+            -webkit-animation: fadeOut 1s linear forwards;
+            animation: fadeOut 1s linear forwards;
+            opacity: 1;
+            display: none;
+        }
+
+        .show {
+            -webkit-animation: fadeIn 0.5s linear forwards;
+            animation: fadeIn 0.5s linear forwards;
+            opacity: 0;
+            display: flex;
+        }
+
+        .spin-button:focus-visible,
+        .respin-button:focus-visible {
+            outline: none !important;
+        }
+
+        @keyframes fadeOut {
+            80% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0;
+            }
+        }
+
+        @keyframes fadeIn {
+            50% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        @media (orientation: landscape) {
+            .main::before {
+                transform: rotate(360deg);
+            }
+
+            .main>img {
+                padding: 0.5em;
+            }
+
+            .spinContainer {
+                grid-template-columns: 40px 1fr 1fr 40px;
+                grid-template-rows: 1fr 300px 1fr;
+                grid-gap: 0;
+            }
+
+            .weWinCont,
+            .welostCont {
+                padding-top: 0;
+            }
+
+            h2 {
+                grid-column: 2 / 3;
+                align-self: center;
+            }
+
+            h4 {
+                grid-column: 2 / 3;
+                grid-row: 2 / 3;
+                align-self: center;
+                padding-top: 4em;
+            }
+
+            #weSpinWheel {
+                grid-column: 3 / 4;
+                grid-row: 2 / 3;
+                bottom: 11%;
+                left: -7%;
+            }
+
+            div.wheel-stand-container {
+                position: absolute;
+                bottom: 5%;
+                left: 51%;
+                grid-column: 2 / 4;
+                grid-row: 3 / 3;
+
+            }
+
+            .spinContainer>p {
+                grid-column: 3 / 4;
+                grid-row: 3 / 4;
+            }
+        }

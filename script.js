@@ -1,4 +1,10 @@
-let userData = {};
+ document.getElementById("userPhone").addEventListener("focus", function () {
+    if (this.value.trim() === "") {
+        this.value = "+965";
+    }
+});
+
+        let userData = {};
         var weDATA = [
             { "weName": "5 KWD", "weWin": "yes", "color": "#ffffff", "wePercWght": 30 },
             { "weName": "7 KWD", "weWin": "yes", "color": "#ffffff", "wePercWght": 30 },
@@ -34,17 +40,55 @@ let userData = {};
             .attr("text-anchor", "end")
             .text(function(d, i) { return weDATA[i].weName; })
             .style({ fill: "#000", "font-size": "13px", "font-weight": "600" });
+
+            document.getElementById("userPhone").addEventListener("focus", function () {
+    if (this.value.trim() === "") {
+        this.value = "+965 ";
+    }
+});
             
         function handleFormSubmit() {
             var name = document.getElementById("userName").value.trim();
             var email = document.getElementById("userEmail").value.trim();
             var phone = document.getElementById("userPhone").value.trim();
             
-            if (!name || !email || !phone) {
-                alert("Please fill in all fields");
-                return;
-            }
-            
+ // clear old errors
+document.getElementById("nameError").innerText = "";
+document.getElementById("emailError").innerText = "";
+document.getElementById("phoneError").innerText = "";
+
+let isValid = true;
+
+if (!name) {
+    document.getElementById("nameError").innerText = "Please enter your name";
+    isValid = false;
+}
+
+// email validation
+var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+if (!email) {
+    document.getElementById("emailError").innerText = "Please enter your email";
+    isValid = false;
+} else if (!emailRegex.test(email)) {
+    document.getElementById("emailError").innerText = "Please enter a valid email";
+    isValid = false;
+}
+
+// phone validation
+var phoneRegex = /^\+965\s?[0-9]{8}$/;
+
+if (!phone) {
+    document.getElementById("phoneError").innerText = "Please enter your phone number";
+    isValid = false;
+} else if (!phoneRegex.test(phone)) {
+    document.getElementById("phoneError").innerText = "Phone must be +965 followed by 8 digits";
+    isValid = false;
+}
+
+if (!isValid) return;
+
+
+
             userData = { name, email, phone };
             
             document.getElementById("formScreen").classList.add("hide");

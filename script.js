@@ -135,7 +135,7 @@ if (!isValid) return;
                 
                 try {
                     if (typeof weNotification !== 'undefined') {
-                        weNotification.trackEvent("KSA onsite- spin the wheel click", JSON.stringify({
+                        weNotification.trackEvent("kw_in-app-spin the wheel", JSON.stringify({
                             name: userData.name,
                             email: userData.email,
                             phone: userData.phone,

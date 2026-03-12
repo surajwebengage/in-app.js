@@ -6,10 +6,10 @@ document.getElementById("userPhone").addEventListener("focus", function () {
 
         let userData = {};
         var weDATA = [
-            { "weName": "5 KWD", "weCode": "WEBENGAGE100", "weWin": "yes", "color": "#ffffff", "wePercWght": 30 },
-            { "weName": "7 KWD",  "weCode": "WEBENGAGE100", "weWin": "yes", "color": "#ffffff", "wePercWght": 30 },
-            { "weName": "10 KWD",  "weCode": "WEBENGAGE100", "weWin": "yes", "color": "#f6d487", "wePercWght": 20 },
-            { "weName": "TRY AGAIN",  "weCode": "WEBENGAGE100", "weWin": "no", "color": "#ffffff", "wePercWght": 20 }
+            { "weName": "5 KWD", "weCode": "Ramadan5", "weWin": "yes", "color": "#ffffff", "wePercWght": 30 },
+            { "weName": "7 KWD",  "weCode": "Ramadan7", "weWin": "yes", "color": "#ffffff", "wePercWght": 30 },
+            { "weName": "10 KWD",  "weCode": "Ramadan10", "weWin": "yes", "color": "#f6d487", "wePercWght": 20 },
+            { "weName": "TRY AGAIN",  "weCode": "Try again", "weWin": "no", "color": "#ffffff", "wePercWght": 20 }
         ];
         var w = 260, h = 260, r = 130;
         var rotation = 0, oldrotation = -45;

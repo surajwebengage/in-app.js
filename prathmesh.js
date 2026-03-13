@@ -1,8 +1,3 @@
-document.getElementById("userPhone").addEventListener("focus", function () {
-    if (this.value.trim() === "") {
-        this.value = "+965";
-    }
-});
 
         let userData = {};
         var weDATA = [

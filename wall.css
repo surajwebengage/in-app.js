@@ -252,9 +252,9 @@
         }
 
         @media (orientation: landscape) {
-            .main::before {
+            /* .main::before {
                 transform: rotate(360deg);
-            }
+            } */
 
             .main>img {
                 padding: 0.5em;

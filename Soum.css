@@ -4,7 +4,7 @@
 
 
 .main::before {
- background-color: #fbd8c7;
+ background-color: #fbd8c7 !important;
 }
 
         *,

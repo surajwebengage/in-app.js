@@ -3,6 +3,10 @@
         }
 
 
+.main::before {
+ background-color: #fbd8c7;
+}
+
         *,
         *::after,
         *::before {

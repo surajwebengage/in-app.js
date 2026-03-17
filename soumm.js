@@ -62,7 +62,7 @@
                         weDATA[picked].Image;
 
                         if (weDATA[picked].Image) {
-                            img_win.style.width = "150px";
+                            img_win.style.width = "300px";
                             contact_info.innerText = "فريقنا بيتواصل معك خلال 5 أيام عمل لترتيب استلام الجائزة 🚀";
                             document.querySelector("code").style.display = "none";
                         }else {

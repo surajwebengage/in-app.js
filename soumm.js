@@ -1,4 +1,4 @@
- var padding = {
+  var padding = {
             top: 20,
             right: 0,
             bottom: 0,
@@ -39,7 +39,6 @@
         // calculate rotation
         rotation = 1440 + o * (weDATA.length - Number(i()));
 
-        // ✅ FIXED picked logic
         picked = Math.floor((weDATA.length - (rotation % 360) / o)) % weDATA.length;
         if (picked < 0) picked += weDATA.length;
 
@@ -65,6 +64,7 @@
                         if (weDATA[picked].Image) {
                             img_win.style.width = "150px";
                             contact_info.innerText = "فريقنا بيتواصل معك خلال 5 أيام عمل لترتيب استلام الجائزة 🚀";
+                            document.querySelector("code").style.display = "none";
                         }else {
                             img_win.style.display = "none";
                         }

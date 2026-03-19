@@ -1,0 +1,234 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>KWD Spin · WhatsApp notification</title>
+
+<script src="https://cdn.rawgit.com/zarocknz/javascript-winwheel/2.6/Winwheel.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"></script>
+
+<style>
+
+@font-face {
+font-family:"DINOT";
+src:url("https://dmq2kle6yj1z5.cloudfront.net/~10a5cb53d/2025-02-18T10%3A24%3A14.604ZDINOT.OTF") format("opentype");
+}
+
+@font-face {
+font-family:"PlayfairDisplay-VariableFont_wght";
+src:url("https://dmq2kle6yj1z5.cloudfront.net/~134104929/2025-09-15T10%3A27%3A45.943ZPlayfairDisplay-VariableFont_wght.ttf") format("opentype");
+}
+
+@font-face {
+font-family:"Roboto-Regular";
+src:url("https://dmq2kle6yj1z5.cloudfront.net/~134104929/2025-09-15T10%3A30%3A35.173ZRoboto-Regular.ttf") format("opentype");
+}
+
+body{
+font-family:"DINOT";
+width:300px;
+display:flex;
+flex-direction:column;
+align-items:center;
+margin:0 auto;
+overflow-y:hidden;
+background-size:cover;
+}
+
+td.the_wheel,
+canvas#canvas{
+width:100%;
+max-width:320px;
+background-size:cover;
+background-position:center;
+}
+
+span.t1{
+font-size:21px;
+color:#fcd988;
+font-weight:bold;
+font-family:"PlayfairDisplay-VariableFont_wght";
+direction:rtl;
+}
+
+.kd1{
+font-size:18px;
+color:#ffffff;
+font-weight:bold;
+text-align:center;
+margin-top:12px;
+margin-bottom:15px;
+direction:rtl;
+}
+
+.prize-message{
+margin-top:15px;
+text-align:center;
+}
+
+.hidden-data{
+display:none;
+}
+
+</style>
+</head>
+
+<body>
+
+<canvas id="canvas" width="700" height="700"></canvas>
+
+<div id="myList" style="padding:10px;text-align:center;margin-top:5px"></div>
+
+<div class="hidden-data">
+<span id="couponCode"></span>
+<span id="offerWon"></span>
+</div>
+
+<table style="width:100%;text-align:center">
+<tr>
+<td>
+
+<div id="spin_button">
+<p style="
+padding:9px;
+cursor:pointer;
+width:68%;
+margin:auto;
+background-color:#fcd987;
+font-size:26px;
+font-weight:900;
+color:#fff;
+direction:rtl;"
+onclick="calculatePrize();">
+
+العب الآن
+
+</p>
+</div>
+
+</td>
+</tr>
+</table>
+
+<script>
+
+const SEGMENT_TEXTS=[
+"Try again","Try again",
+"50AED","50AED","50AED",
+"70AED","70AED",
+"100AED"
+];
+
+const PRIZE_CODES={
+"50AED":"Ramadan50",
+"70AED":"Ramadan70",
+"100AED":"Ramadan100"
+};
+
+const PRIZE_INDEXES={
+"Try again":[0,1],
+"50AED":[2,3,4],
+"70AED":[5,6],
+"100AED":[7]
+};
+
+const PROB_TABLE=[
+{prize:"Try again",prob:0.20},
+{prize:"50AED",prob:0.30},
+{prize:"70AED",prob:0.30},
+{prize:"100AED",prob:0.20}
+];
+
+let theWheel=new Winwheel({
+numSegments:8,
+outerRadius:260,
+drawMode:"image",
+rotationAngle:-14,
+segments:SEGMENT_TEXTS.map(t=>({text:t})),
+animation:{
+type:"spinToStop",
+duration:5,
+spins:6,
+callbackFinished:"logChore()"
+}
+});
+
+let wheelSpinning=false;
+
+function calculatePrize(){
+
+if(wheelSpinning) return;
+
+let rnd=Math.random();
+let cumulative=0;
+let selectedPrize=null;
+
+for(let entry of PROB_TABLE){
+cumulative+=entry.prob;
+if(rnd<cumulative){
+selectedPrize=entry.prize;
+break;
+}
+}
+
+let possibleIndexes=PRIZE_INDEXES[selectedPrize];
+let chosenIndex=possibleIndexes[Math.floor(Math.random()*possibleIndexes.length)];
+
+theWheel.animation.stopAngle=chosenIndex*45+60;
+theWheel.startAnimation();
+
+wheelSpinning=true;
+}
+
+let img=new Image();
+img.onload=function(){
+theWheel.wheelImage=img;
+theWheel.draw();
+};
+img.src="https://email-editor-resources.s3.amazonaws.com/images/311c601a/2-removebg-preview.png";
+
+function logChore(){
+
+let seg=theWheel.getIndicatedSegment();
+let prizeText=seg.text;
+let code=PRIZE_CODES[prizeText]||"";
+
+document.getElementById("couponCode").textContent=code;
+document.getElementById("offerWon").textContent=prizeText;
+
+setTimeout(()=>{
+window.parent.parent.postMessage({
+type:"couponCode",
+value:code,
+offerWon:prizeText
+},"*");
+},100);
+
+let msg=document.createElement("div");
+msg.className="prize-message";
+
+if(code){
+msg.innerHTML=
+"<span class='t1'>مبروك!</span><br>"+
+"<div class='kd1'>لقد ربحت قسيمة بقيمة "+prizeText+"<br>ستصلك القسيمة عبر واتساب والبريد الإلكتروني خلال دقائق</div>";
+}else{
+msg.innerHTML=
+"<span class='t1'>حظا أوفر!</span><br>"+
+"<div class='kd1'>"+prizeText+"</div>";
+}
+
+document.getElementById("myList").innerHTML="";
+document.getElementById("myList").appendChild(msg);
+
+document.getElementById("spin_button").style.display="none";
+
+}
+
+</script>
+
+</body>
+</html>

@@ -1,234 +1,249 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar">
 
 <head>
-<meta charset="UTF-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>KWD Spin · WhatsApp notification</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spin Wheel</title>
+    <style>
+        .close-button {
+            color: #000000;
+            position: absolute;
+            top: -60px;
+            right: 0;
+            padding: 15px;
+            font-size: 18px;
+            z-index: 999999;
+        }
 
-<script src="https://cdn.rawgit.com/zarocknz/javascript-winwheel/2.6/Winwheel.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"></script>
+        .modal-content {
+            background-color: #e3003a;
+            width: 300px;
 
-<style>
+        }
 
-@font-face {
-font-family:"DINOT";
-src:url("https://dmq2kle6yj1z5.cloudfront.net/~10a5cb53d/2025-02-18T10%3A24%3A14.604ZDINOT.OTF") format("opentype");
-}
+        h2 {
+            font-size: 24px;
+        }
 
-@font-face {
-font-family:"PlayfairDisplay-VariableFont_wght";
-src:url("https://dmq2kle6yj1z5.cloudfront.net/~134104929/2025-09-15T10%3A27%3A45.943ZPlayfairDisplay-VariableFont_wght.ttf") format("opentype");
-}
+        .wrapper {
+            background-color: #e3003a;
+             width: 300px;
+        }
 
-@font-face {
-font-family:"Roboto-Regular";
-src:url("https://dmq2kle6yj1z5.cloudfront.net/~134104929/2025-09-15T10%3A30%3A35.173ZRoboto-Regular.ttf") format("opentype");
-}
+        .spin-button {
+            width: 200px;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            background: linear-gradient(358deg, #fefefe 0%, #e3003a 100%);
+            transition: all 0.2s ease;
+            border: 1px solid #fff;
+        }
 
-body{
-font-family:"DINOT";
-width:300px;
-display:flex;
-flex-direction:column;
-align-items:center;
-margin:0 auto;
-overflow-y:hidden;
-background-size:cover;
-}
+        .spin-button span {
+            color: #fff;
+            font-size: 28px;
+            font-weight: 700;
+            text-shadow:
+                0px 2px 0px #ff7a7a,
+                0px 3px 6px rgba(0, 0, 0, 0.3);
+        }
 
-td.the_wheel,
-canvas#canvas{
-width:100%;
-max-width:320px;
-background-size:cover;
-background-position:center;
-}
+        /* press effect */
+        .spin-button:active {
+            transform: translateY(4px);
+            box-shadow:
+                0px 2px 0px #b30021,
+                0px 6px 12px rgba(0, 0, 0, 0.2),
+                inset 0px 2px 8px rgba(255, 255, 255, 0.4);
+        }
 
-span.t1{
-font-size:21px;
-color:#fcd988;
-font-weight:bold;
-font-family:"PlayfairDisplay-VariableFont_wght";
-direction:rtl;
-}
+        .wheel-container {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            margin: 50px auto;
+        }
 
-.kd1{
-font-size:18px;
-color:#ffffff;
-font-weight:bold;
-text-align:center;
-margin-top:12px;
-margin-bottom:15px;
-direction:rtl;
-}
+        #wheel {
+            width: 100%;
+            transition: transform 4s cubic-bezier(0.33, 1, 0.68, 1);
+        }
 
-.prize-message{
-margin-top:15px;
-text-align:center;
-}
+        .pointer {
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            z-index: 10;
+        }
 
-.hidden-data{
-display:none;
-}
+        .center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 70px;
+            z-index: 5;
+        }
 
-</style>
+        #weResultOverlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            display: none;
+            z-index: 99999;
+            cursor: pointer;
+        }
+
+        /* Result container for button positioning */
+        .result-wrapper {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #weResultOverlay img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Updated button style to match SAVE10 design */
+        .copy-btn {
+            position: absolute;
+            top: 55%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #FFD700; /* Yellow background */
+            color: #e3003a; /* Red text */
+            border: none;
+            border-radius: 6px;
+            padding: 14px 32px;
+            font-size: 22px;
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+            font-family: inherit;
+            z-index: 100;
+            transition: all 0.2s ease;
+            letter-spacing: 1px;
+            box-shadow: 0px 2px 6px rgba(0,0,0,0.3);
+        }
+
+        .copy-btn:active {
+            transform: translate(-50%, -50%) scale(0.97);
+        }
+
+        button {
+            padding: 12px 25px;
+            border-radius: 30px;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
 </head>
 
-<body>
+<body style="text-align:center;">
+    <h2 style="color:white;">لــف العـجـــلة الجــوائز بانتظـــارك</h2>
+    <div class="wheel-container">
+        <img class="pointer" src="https://static-assets-services.s3.ap-south-1.amazonaws.com/Wheel+Pointer.svg" />
+        <img id="wheel" src="https://i.ibb.co/m5b4bRVJ/Spin-the-wheel-the-prizes-are-waiting-for-you.png" />
+        <img class="center" src="https://static-assets-services.s3.ap-south-1.amazonaws.com/Wheel+Center+Circle.svg" />
+    </div>
+    <button class="spin-button" onclick="spin();">
+        <span>اضغط للبدء</span>
+    </button>
+    <div id="weResultOverlay">
+        <div class="result-wrapper">
+            <img id="weResultImg">
+            <button id="copyButton" class="copy-btn" style="display: none;" onclick="copyPrizeCode(event);"></button>
+        </div>
+    </div>
+    <script>
+        var rotation = 0;
+        var spinning = false;
+        var currentPrizeCode = "";
+        var currentPrizeName = "";
 
-<canvas id="canvas" width="700" height="700"></canvas>
+        var weDATA = [
+            { weName: "100 ريال", img: "https://afiles.webengage.com/~15ba1dbb5/b3a53b5b-d3ff-432b-9188-317c394261d0.png", prizeCode: "Mega100", probability: 0.0001, showButton: true },
+            { weName: "شحن مجاني", img: "https://afiles.webengage.com/~15ba1dbb5/3074f77a-2369-4d83-b142-4f88385f53ce.png", prizeCode: "FREESHIP", probability: 0.0001, showButton: true },
+            { weName: "خصم 10%", img: "https://afiles.webengage.com/~15ba1dbb5/9bd87222-23e3-4941-8163-e26de577ebb5.png", prizeCode: "SAVE10", probability: 5, showButton: true },
+            { weName: "حظاً أوفر", img: "https://afiles.webengage.com/~15ba1dbb5/f1a506d9-b267-4ea2-9c8d-7b269030e17c.png", prizeCode: "", probability: 1, showButton: false },
+            { weName: "خصم 3%", img: "https://afiles.webengage.com/~15ba1dbb5/ece340c9-09dc-4bc9-ade7-0d27d44ef010.png", prizeCode: "SAVE3", probability: 93.9998, showButton: true }
+        ];
 
-<div id="myList" style="padding:10px;text-align:center;margin-top:5px"></div>
+        function getWeightedIndex(data) {
+            let total = data.reduce((sum, d) => sum + d.probability, 0);
+            let rand = Math.random() * total;
 
-<div class="hidden-data">
-<span id="couponCode"></span>
-<span id="offerWon"></span>
-</div>
+            let cumulative = 0;
+            for (let i = 0; i < data.length; i++) {
+                cumulative += data[i].probability;
+                if (rand <= cumulative) return i;
+            }
+            return data.length - 1;
+        }
 
-<table style="width:100%;text-align:center">
-<tr>
-<td>
+        // Copy function
+        function copyPrizeCode(event) {
+            event.stopPropagation();
+            if (currentPrizeCode) {
+                navigator.clipboard.writeText(currentPrizeCode).then(function() {
+                    var btn = document.getElementById("copyButton");
+                    var originalText = btn.innerHTML;
+                    btn.innerHTML = '✓ COPIED!';
+                    setTimeout(function() {
+                        btn.innerHTML = originalText;
+                    }, 1500);
+                }).catch(function() {
+                    alert("Copy code: " + currentPrizeCode);
+                });
+            }
+        }
 
-<div id="spin_button">
-<p style="
-padding:9px;
-cursor:pointer;
-width:68%;
-margin:auto;
-background-color:#fcd987;
-font-size:26px;
-font-weight:900;
-color:#fff;
-direction:rtl;"
-onclick="calculatePrize();">
+        function spin() {
+            if (spinning) return;
+            spinning = true;
+            var wheel = document.getElementById("wheel");
+            var sliceDeg = 360 / weDATA.length;
+            var selectedIndex = getWeightedIndex(weDATA);
+            var sliceCenter = (selectedIndex * sliceDeg) + (sliceDeg / 2);
+            rotation = rotation % 360;
+            var finalRotation = 360 * 5 + (350 - sliceCenter);
+            rotation += finalRotation;
+            wheel.style.transform = "rotate(" + rotation + "deg)";
 
-العب الآن
+            setTimeout(function () {
+                var result = weDATA[selectedIndex];
+                currentPrizeCode = result.prizeCode;
+                currentPrizeName = result.weName;
+                document.getElementById("weResultImg").src = result.img;
+                var copyBtn = document.getElementById("copyButton");
+                if (result.showButton && result.prizeCode) {
+                    copyBtn.style.display = "block";
+                    copyBtn.textContent = result.prizeCode;
+                } else {
+                    copyBtn.style.display = "none";
+                }
+                document.getElementById("weResultOverlay").style.display = "flex";
+                spinning = false;
+            }, 4200);
+        }
 
-</p>
-</div>
-
-</td>
-</tr>
-</table>
-
-<script>
-
-const SEGMENT_TEXTS=[
-"Try again","Try again",
-"50AED","50AED","50AED",
-"70AED","70AED",
-"100AED"
-];
-
-const PRIZE_CODES={
-"50AED":"Ramadan50",
-"70AED":"Ramadan70",
-"100AED":"Ramadan100"
-};
-
-const PRIZE_INDEXES={
-"Try again":[0,1],
-"50AED":[2,3,4],
-"70AED":[5,6],
-"100AED":[7]
-};
-
-const PROB_TABLE=[
-{prize:"Try again",prob:0.20},
-{prize:"50AED",prob:0.30},
-{prize:"70AED",prob:0.30},
-{prize:"100AED",prob:0.20}
-];
-
-let theWheel=new Winwheel({
-numSegments:8,
-outerRadius:260,
-drawMode:"image",
-rotationAngle:-14,
-segments:SEGMENT_TEXTS.map(t=>({text:t})),
-animation:{
-type:"spinToStop",
-duration:5,
-spins:6,
-callbackFinished:"logChore()"
-}
-});
-
-let wheelSpinning=false;
-
-function calculatePrize(){
-
-if(wheelSpinning) return;
-
-let rnd=Math.random();
-let cumulative=0;
-let selectedPrize=null;
-
-for(let entry of PROB_TABLE){
-cumulative+=entry.prob;
-if(rnd<cumulative){
-selectedPrize=entry.prize;
-break;
-}
-}
-
-let possibleIndexes=PRIZE_INDEXES[selectedPrize];
-let chosenIndex=possibleIndexes[Math.floor(Math.random()*possibleIndexes.length)];
-
-theWheel.animation.stopAngle=chosenIndex*45+60;
-theWheel.startAnimation();
-
-wheelSpinning=true;
-}
-
-let img=new Image();
-img.onload=function(){
-theWheel.wheelImage=img;
-theWheel.draw();
-};
-img.src="https://email-editor-resources.s3.amazonaws.com/images/311c601a/2-removebg-preview.png";
-
-function logChore(){
-
-let seg=theWheel.getIndicatedSegment();
-let prizeText=seg.text;
-let code=PRIZE_CODES[prizeText]||"";
-
-document.getElementById("couponCode").textContent=code;
-document.getElementById("offerWon").textContent=prizeText;
-
-setTimeout(()=>{
-window.parent.parent.postMessage({
-type:"couponCode",
-value:code,
-offerWon:prizeText
-},"*");
-},100);
-
-let msg=document.createElement("div");
-msg.className="prize-message";
-
-if(code){
-msg.innerHTML=
-"<span class='t1'>مبروك!</span><br>"+
-"<div class='kd1'>لقد ربحت قسيمة بقيمة "+prizeText+"<br>ستصلك القسيمة عبر واتساب والبريد الإلكتروني خلال دقائق</div>";
-}else{
-msg.innerHTML=
-"<span class='t1'>حظا أوفر!</span><br>"+
-"<div class='kd1'>"+prizeText+"</div>";
-}
-
-document.getElementById("myList").innerHTML="";
-document.getElementById("myList").appendChild(msg);
-
-document.getElementById("spin_button").style.display="none";
-
-}
-
-</script>
-
+        document.getElementById("weResultOverlay").addEventListener("click", function() {
+            this.style.display = "none";
+        });
+    </script>
 </body>
+
 </html>

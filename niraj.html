@@ -6,11 +6,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Spin Wheel</title>
     <style>
+
+.modal-content {
+    background-color: #e3003a;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+justify-content: center;
+}
+
         .close-button {
             color: #000000;
             position: absolute;
-            top: -60px;
-            right: 0;
+            top: 0px;
+            right: 0px;
             padding: 15px;
             font-size: 18px;
             z-index: 999999;
@@ -18,8 +28,6 @@
 
         .modal-content {
             background-color: #e3003a;
-            width: 300px;
-
         }
 
         h2 {
@@ -194,19 +202,35 @@
             return data.length - 1;
         }
 
-        // Copy function
+        // Copy function - copies the prize code and changes button text to "Copied!" temporarily, then reverts back to original code
         function copyPrizeCode(event) {
             event.stopPropagation();
             if (currentPrizeCode) {
                 navigator.clipboard.writeText(currentPrizeCode).then(function() {
                     var btn = document.getElementById("copyButton");
-                    var originalText = btn.innerHTML;
-                    btn.innerHTML = '✓ COPIED!';
+                    // Store the original text (the prize code)
+                    var originalText = btn.textContent;
+                    // Change button text to "Copied!"
+                    btn.textContent = 'Copied!';
+                    // After 1.5 seconds, revert back to the original prize code
                     setTimeout(function() {
-                        btn.innerHTML = originalText;
+                        btn.textContent = originalText;
                     }, 1500);
                 }).catch(function() {
-                    alert("Copy code: " + currentPrizeCode);
+                    // Fallback in case clipboard fails - but no alert, just update button temporarily
+                    var btn = document.getElementById("copyButton");
+                    var originalText = btn.textContent;
+                    btn.textContent = 'Copied!';
+                    setTimeout(function() {
+                        btn.textContent = originalText;
+                    }, 1500);
+                    // Also try to copy using a hidden input method without alert
+                    var tempInput = document.createElement("input");
+                    tempInput.value = currentPrizeCode;
+                    document.body.appendChild(tempInput);
+                    tempInput.select();
+                    document.execCommand("copy");
+                    document.body.removeChild(tempInput);
                 });
             }
         }

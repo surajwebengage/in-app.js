@@ -12,18 +12,23 @@
 
     <style>
         @font-face {
-            font-family: "DINOT";
-            src: url("https://dmq2kle6yj1z5.cloudfront.net/~10a5cb53d/2025-02-18T10%3A24%3A14.604ZDINOT.OTF") format("opentype");
+            font-family: "GillSansBold.otf";
+            src: url("https://static-assets-services.s3.ap-south-1.amazonaws.com/Gill+Sans+Bold.otf") format("opentype");
         }
 
         @font-face {
-            font-family: "PlayfairDisplay-VariableFont_wght";
-            src: url("https://dmq2kle6yj1z5.cloudfront.net/~134104929/2025-09-15T10%3A27%3A45.943ZPlayfairDisplay-VariableFont_wght.ttf") format("opentype");
+            font-family: "GillSansMedium.otf";
+            src: url("https://static-assets-services.s3.ap-south-1.amazonaws.com/Gill+Sans+Medium.otf") format("opentype");
         }
 
         @font-face {
-            font-family: "Roboto-Regular";
-            src: url("https://dmq2kle6yj1z5.cloudfront.net/~134104929/2025-09-15T10%3A30%3A35.173ZRoboto-Regular.ttf") format("opentype");
+            font-family: "GillSans.otf";
+            src: url("https://static-assets-services.s3.ap-south-1.amazonaws.com/Gill+Sans.otf") format("opentype");
+        }
+
+        @font-face {
+            font-family: "GillSansCondensedBold.otf";
+            src: url("https://static-assets-services.s3.ap-south-1.amazonaws.com/GillSans+Condensed+Bold.otf") format("opentype");
         }
 
         body {
@@ -49,14 +54,20 @@
             color: #fcd988;
             font-weight: bold;
             font-family: "PlayfairDisplay-VariableFont_wght";
+            
         }
 
         .kd1 {
-            font-size: 22px;
-            color: black;
-            text-align: center;
+    font-size: 16px;
             margin-top: 12px;
             margin-bottom: 15px;
+            color: #91553d;
+            font-weight: 300;
+            font-family: "Gill Sans";
+            text-align: center;
+                text-align: center;
+    line-height: 1.4;
+
         }
 
         .prize-message {
@@ -72,6 +83,9 @@
 
 <body>
 
+    <div id="we_header" style="padding:10px;text-align:center;margin-top:5px"></div>
+
+    
     <canvas id="canvas" width="700" height="700"></canvas>
 
     <div id="myList" style="padding:10px;text-align:center;margin-top:5px"></div>
@@ -202,11 +216,17 @@ color:#fff;" onclick="calculatePrize();">
             let msg = document.createElement("div");
             msg.className = "prize-message";
 
+            let headerMsg = document.createElement("div");
+            headerMsg.className = "prize-header";
+
             if (code) {
+
+                headerMsg.innerHTML = "<span class='t1'>You've won " + prizeText + "</span>";
+
                 msg.innerHTML =
-               "<span class='t1'>Congratulations!</span><br>" +
-                "<div class='kd1'>You've won " + prizeText + "<br>YOUR EXCLUSIVE CODE IS ON ITS WAY <br> VIA WHATSAPP & EMAIL</div>" +
-                 "<a href='https://www.pngjewellers.com/collections/ramadan-offers'>Explore Collection</a>";
+                    "<span class='t1'>Congratulations!</span><br>" +
+                    "<div class='kd1'>YOUR EXCLUSIVE CODE IS ON ITS WAY <br> VIA WHATSAPP & EMAIL</div>" +
+                    "<a href='https://www.pngjewellers.com/collections/ramadan-offers' style='display:inline-block;padding:10px 22px;background:linear-gradient(135deg,#c9b2a8,#a88f84);color:#ffffff;font-size:13px;letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;border-radius:50px;font-weight:600;border:none;transition:all 0.3s ease;box-shadow:0 4px 12px rgba(0,0,0,0.15);'>Explore Collection</a>";
             } else {
                 msg.innerHTML =
                     "<span class='t1'>Better Luck!</span><br>" +
@@ -215,6 +235,9 @@ color:#fff;" onclick="calculatePrize();">
 
             document.getElementById("myList").innerHTML = "";
             document.getElementById("myList").appendChild(msg);
+
+                document.getElementById("we_header").innerHTML = "";
+            document.getElementById("we_header").appendChild(headerMsg);
 
             document.getElementById("spin_button").style.display = "none";
 

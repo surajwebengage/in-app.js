@@ -1,222 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
 
-        let userData = {};
-        var weDATA = [
-            { "weName": "5 KWD", "weCode": "Ramadan5", "weWin": "yes", "color": "#ffffff", "wePercWght": 30 },
-            { "weName": "7 KWD",  "weCode": "Ramadan7", "weWin": "yes", "color": "#ffffff", "wePercWght": 30 },
-            { "weName": "10 KWD",  "weCode": "Ramadan10", "weWin": "yes", "color": "#f6d487", "wePercWght": 20 },
-            { "weName": "TRY AGAIN",  "weCode": "Try again", "weWin": "no", "color": "#ffffff", "wePercWght": 20 }
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>KWD Spin · WhatsApp notification</title>
+
+    <script src="https://cdn.rawgit.com/zarocknz/javascript-winwheel/2.6/Winwheel.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"></script>
+
+    <style>
+        @font-face {
+            font-family: "DINOT";
+            src: url("https://dmq2kle6yj1z5.cloudfront.net/~10a5cb53d/2025-02-18T10%3A24%3A14.604ZDINOT.OTF") format("opentype");
+        }
+
+        @font-face {
+            font-family: "PlayfairDisplay-VariableFont_wght";
+            src: url("https://dmq2kle6yj1z5.cloudfront.net/~134104929/2025-09-15T10%3A27%3A45.943ZPlayfairDisplay-VariableFont_wght.ttf") format("opentype");
+        }
+
+        @font-face {
+            font-family: "Roboto-Regular";
+            src: url("https://dmq2kle6yj1z5.cloudfront.net/~134104929/2025-09-15T10%3A30%3A35.173ZRoboto-Regular.ttf") format("opentype");
+        }
+
+        body {
+            font-family: "DINOT";
+            width: 300px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+
+        td.the_wheel,
+        canvas#canvas {
+            width: 100%;
+            max-width: 320px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        span.t1 {
+            font-size: 21px;
+            color: #fcd988;
+            font-weight: bold;
+            font-family: "PlayfairDisplay-VariableFont_wght";
+        }
+
+        .kd1 {
+            font-size: 22px;
+            color: black;
+            text-align: center;
+            margin-top: 12px;
+            margin-bottom: 15px;
+        }
+
+        .prize-message {
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        .hidden-data {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <canvas id="canvas" width="700" height="700"></canvas>
+
+    <div id="myList" style="padding:10px;text-align:center;margin-top:5px"></div>
+
+    <div class="hidden-data">
+        <span id="couponCode"></span>
+        <span id="offerWon"></span>
+    </div>
+
+    <table style="width:100%;text-align:center">
+        <tr>
+            <td>
+
+                <div id="spin_button">
+                    <p style="
+padding:10px;
+cursor:pointer;
+width:70%;
+margin:auto;
+background:#fcd987;
+font-size:26px;
+font-weight:900;
+color:#fff;" onclick="calculatePrize();">
+
+                        SPIN NOW
+
+                    </p>
+                </div>
+
+            </td>
+        </tr>
+    </table>
+
+    <script>
+
+        const SEGMENT_TEXTS = [
+            "Try again", "Try again",
+            "5KWD", "5KWD", "5KWD",
+            "7KWD", "7KWD",
+            "10KWD"
         ];
-        var w = 260, h = 260, r = 130;
-        var rotation = 0, oldrotation = -45;
-        var currentPrize = "";
-        var couponCode = "";
 
-        var svg = d3.select("#weSpinWheel").append("svg").attr("width", w).attr("height", h);
-        var container = svg.append("g").attr("transform", "translate(" + w / 2 + "," + h / 2 + ")");
-        var vis = container.append("g").attr("transform", "rotate(-45)");
+        const PRIZE_CODES = {
+            "5KWD": "Ramadan5",
+            "7KWD": "Ramadan7",
+            "10KWD": "Ramadan10"
+        };
 
-        var pie = d3.layout.pie().sort(null).value(function() { return 1; });
-        var arc = d3.svg.arc().outerRadius(r);
+        const PRIZE_INDEXES = {
+            "Try again": [0, 1],
+            "5KWD": [2, 3, 4],
+            "7KWD": [5, 6],
+            "10KWD": [7]
+        };
 
-        var arcs = vis.selectAll("g.slice").data(pie(weDATA)).enter().append("g");
+        const PROB_TABLE = [
+            { prize: "Try again", prob: 0.20 },
+            { prize: "5KWD", prob: 0.30 },
+            { prize: "7KWD", prob: 0.30 },
+            { prize: "10KWD", prob: 0.20 }
+        ];
 
-        arcs.append("path")
-            .attr("fill", function(d, i) { return weDATA[i].color; })
-            .attr("stroke", "#000")
-            .attr("stroke-width", 2)
-            .attr("d", arc);
-
-        arcs.append("text")
-            .attr("transform", function(d) {
-                d.innerRadius = 0;
-                d.outerRadius = r;
-                d.angle = (d.startAngle + d.endAngle) / 2;
-                return "rotate(" + (d.angle * 180 / Math.PI - 90) + ")translate(" + (d.outerRadius - 20) + ")";
-            })
-            .attr("text-anchor", "end")
-            .text(function(d, i) { return weDATA[i].weName; })
-            .style({ fill: "#000", "font-size": "13px", "font-weight": "600" });
-
-            document.getElementById("userPhone").addEventListener("focus", function () {
-    if (this.value.trim() === "") {
-        this.value = "+965 ";
-    }
-});
-            
-        function handleFormSubmit() {
-            var name = document.getElementById("userName").value.trim();
-            var email = document.getElementById("userEmail").value.trim();
-            var phone = document.getElementById("userPhone").value.trim();
-            
- // clear old errors
-document.getElementById("nameError").innerText = "";
-document.getElementById("emailError").innerText = "";
-document.getElementById("phoneError").innerText = "";
-
-let isValid = true;
-
-if (!name) {
-    document.getElementById("nameError").innerText = "Please enter your name";
-    isValid = false;
-}
-
-// email validation
-var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-if (!email) {
-    document.getElementById("emailError").innerText = "Please enter your email";
-    isValid = false;
-} else if (!emailRegex.test(email)) {
-    document.getElementById("emailError").innerText = "Please enter a valid email";
-    isValid = false;
-}
-
-// phone validation
-var phoneRegex = /^\+965\s?[0-9]{8}$/;
-
-if (!phone) {
-    document.getElementById("phoneError").innerText = "Please enter your phone number";
-    isValid = false;
-} else if (!phoneRegex.test(phone)) {
-    document.getElementById("phoneError").innerText = "Phone must be +965 followed by 8 digits";
-    isValid = false;
-}
-
-if (!isValid) return;
-
-
-
-            userData = { name, email, phone };
-            
-            document.getElementById("formScreen").classList.add("hide");
-            document.getElementById("spinScreen").classList.add("show");
-            
-            try {
-                if (typeof weNotification !== 'undefined') {
-                    weNotification.trackEvent("Spin_Form_Submitted", JSON.stringify(userData), false);
-                }
-            } catch (e) {
-                console.log("Form submitted:", userData);
+        let theWheel = new Winwheel({
+            numSegments: 8,
+            outerRadius: 260,
+            drawMode: "image",
+            rotationAngle: -14,
+            segments: SEGMENT_TEXTS.map(t => ({ text: t })),
+            animation: {
+                type: "spinToStop",
+                duration: 5,
+                spins: 6,
+                callbackFinished: "logChore()"
             }
-        }
+        });
 
-        function weightedRandom(obj) {
-            var arr = [];
-            for (var key in obj) {
-                for (var i = 0; i < obj[key]; i++) {
-                    arr.push(key);
+        let wheelSpinning = false;
+
+        function calculatePrize() {
+
+            if (wheelSpinning) return;
+
+            let rnd = Math.random();
+            let cumulative = 0;
+            let selectedPrize = null;
+
+            for (let entry of PROB_TABLE) {
+                cumulative += entry.prob;
+                if (rnd < cumulative) {
+                    selectedPrize = entry.prize;
+                    break;
                 }
             }
-            return function() { return arr[Math.floor(Math.random() * arr.length)]; };
-        }
-        
-        function spinWheel() {
-            var weights = {};
-            for (var i = 0; i < weDATA.length; i++) {
-                weights[i] = weDATA[i].wePercWght;
-            }
 
-            var index = weightedRandom(weights)();
-            var ps = 360 / weDATA.length;
-            rotation = 1440 + (weDATA.length - index) * ps;
+            let possibleIndexes = PRIZE_INDEXES[selectedPrize];
+            let chosenIndex = possibleIndexes[Math.floor(Math.random() * possibleIndexes.length)];
 
-            vis.transition().duration(4000).attrTween("transform", function() {
-                var i = d3.interpolate(oldrotation, rotation);
-                return function(t) { return "rotate(" + i(t) + ")"; };
-            }).each("end", function() {
-                oldrotation = rotation;
-                var result = weDATA[index];
-                currentPrize = result.weName;
-                couponCode = result.weCode
-                
-                showResult(result);
-                
-                try {
-                    if (typeof weNotification !== 'undefined') {
-                        weNotification.trackEvent("kw_in-app-spin the wheel", JSON.stringify({
-                            name: userData.name,
-                            email: userData.email,
-                            phone: userData.phone,
-                            offerWon: result.weName,
-                            win: result.weWin,
-                            couponCode: result.weCode
-                            
-                        }), false);
-                    }
-                } catch (e) {
-                    console.log("Spin result:", { user: userData, prize: result.weName, win: result.weWin });
-                }
-            });
+            theWheel.animation.stopAngle = chosenIndex * 45 + 60;
+            theWheel.startAnimation();
+
+            wheelSpinning = true;
         }
-        
-        function showResult(result) {
-            var resultContainer = document.getElementById("resultContainer");
-            var spinWheel = document.getElementById("weSpinWheel");
-            var spinBtn = document.querySelector("#spinScreen .btn");
-            var instruction = document.querySelector("#spinScreen p");
-            
-            // Hide wheel, button, and instruction
-            spinWheel.style.display = "none";
-            spinBtn.style.display = "none";
-            instruction.style.display = "none";
-            
-            if (result.weWin === "yes") {
-                // Show winning message with no buttons - exactly like screenshot
-                resultContainer.innerHTML = `
-                    <div style="animation: fadeIn 0.5s; text-align: center;">
-                        <h2 style="color: #f6d487; font-size: 28px; margin-bottom: 15px;">CONGRATULATIONS! 🎉</h2>
-                        <div style="font-size: 32px; font-weight: bold; color: white; margin: 20px 0;">YOU'VE WON ${result.weName}</div>
-                        <p style="margin: 20px 0; font-size: 16px; color: rgba(255,255,255,0.9);">You will receive the code via WhatsApp/Email shortly.</p>
-                        <p style="margin: 20px 0;font-size: 16px;color: rgba(255,255,255,0.9);">Make sure to log in to activate the code!</p>
-                    </div>
-                `;
+
+        let img = new Image();
+        img.onload = function () {
+            theWheel.wheelImage = img;
+            theWheel.draw();
+        };
+        img.src = "https://onsite-assets-editor.s3.amazonaws.com/images/we10a5cb699/Wheel_2_1.png";
+
+        function logChore() {
+
+            let seg = theWheel.getIndicatedSegment();
+            let prizeText = seg.text;
+            let code = PRIZE_CODES[prizeText] || "";
+
+            document.getElementById('couponCode').textContent = code;
+            document.getElementById('offerWon').textContent = prizeText;
+
+            setTimeout(() => {
+                window.parent.parent.postMessage({
+                    type: "couponCode",
+                    value: code,
+                    offerWon: prizeText
+                }, "*");
+            }, 100);
+
+            let msg = document.createElement("div");
+            msg.className = "prize-message";
+
+            if (code) {
+                msg.innerHTML =
+               "<span class='t1'>Congratulations!</span><br>" +
+                "<div class='kd1'>You've won " + prizeText + "<br>YOUR EXCLUSIVE CODE IS ON ITS WAY <br> VIA WHATSAPP & EMAIL</div>" +
+                 "<a href='https://www.pngjewellers.com/collections/ramadan-offers'>Explore Collection</a>";
             } else {
-                // Show try again message
-                resultContainer.innerHTML = `
-                    <div style="animation: fadeIn 0.5s; text-align: center;">
-                        <div style="font-size: 32px; font-weight: bold; color: #f6d487; margin: 20px 0;">TRY AGAIN</div>
-                        <p style="margin: 20px 0; font-size: 16px; color: rgba(255,255,255,0.9);">Better luck next time!</p>
-                    </div>
-                `;
+                msg.innerHTML =
+                    "<span class='t1'>Better Luck!</span><br>" +
+                    "<div class='kd1'>" + prizeText + "</div>";
             }
-            
-            // Auto-close after 5 seconds for win, 3 seconds for try again
-            setTimeout(function() {
-                closeInApp();
-            }, result.weWin === "yes" ? 5000 : 3000);
+
+            document.getElementById("myList").innerHTML = "";
+            document.getElementById("myList").appendChild(msg);
+
+            document.getElementById("spin_button").style.display = "none";
+
         }
 
-        function closeInApp() {
-            try {
-                if (typeof weNotification !== 'undefined') {
-                    weNotification.close();
-                }
-            } catch (e) {
-                console.log("Closing in-app");
-                // Fallback for testing
-                document.getElementById("formScreen").classList.remove("hide");
-                document.getElementById("spinScreen").classList.remove("show");
-                resetDisplay();
-            }
-        }
-        
-        function resetDisplay() {
-            var resultContainer = document.getElementById("resultContainer");
-            var spinWheel = document.getElementById("weSpinWheel");
-            var spinBtn = document.querySelector("#spinScreen .btn");
-            var instruction = document.querySelector("#spinScreen p");
-            
-            resultContainer.innerHTML = "";
-            spinWheel.style.display = "block";
-            spinBtn.style.display = "block";
-            instruction.style.display = "block";
-        }
+    </script>
 
-        // Add fade animation
-        var style = document.createElement('style');
-        style.textContent = `
-            @keyframes fadeIn {
-                from { opacity: 0; transform: translateY(10px); }
-                to { opacity: 1; transform: translateY(0); }
-            }
-        `;
-       document.head.appendChild(style);
+</body>
+
+</html>

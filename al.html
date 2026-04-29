@@ -59,7 +59,6 @@
 
         .kd1 {
             font-size: 16px;
-            margin-top: 12px;
             margin-bottom: 15px;
             color: #91553d;
             font-weight: 300;
@@ -83,12 +82,12 @@
 
 <body>
 
-    <div id="we_header" style="padding:10px;text-align:center;margin-top:5px"></div>
+    <div id="we_header" style="padding-bottom:10px;text-align:center;"></div>
 
 
     <canvas id="canvas" width="700" height="700"></canvas>
 
-    <div id="myList" style="padding:10px;text-align:center;margin-top:5px"></div>
+    <div id="myList" style="text-align:center;"></div>
 
     <div class="hidden-data">
         <span id="couponCode"></span>
@@ -105,12 +104,14 @@ padding:10px;
 cursor:pointer;
 width:70%;
 margin:auto;
-background:#fcd987;
+background:#b08f85;
 font-size:26px;
 font-weight:900;
+font-family:'GillSansBold.otf';
+letter-spacing: 1px;
 color:#fff;" onclick="calculatePrize();">
 
-                        SPIN NOW
+                        SPIN NOW!
 
                     </p>
                 </div>
@@ -224,7 +225,7 @@ color:#fff;" onclick="calculatePrize();">
                 headerMsg.innerHTML = "<span class='t1'>You have won " + prizeText + "</span>";
 
                 msg.innerHTML =
-                    "<img src='https://afiles.webengage.com/11b564b63/4ef06e2c-f66d-48a2-8bd2-9eea48a67c09.png' alt='Congratulations' style='display:block;max-width:100%;height:auto;margin:0 auto 10px;' /><br>" + "<div class='kd1'>YOUR EXCLUSIVE CODE IS ON ITS WAY <br> VIA WHATSAPP & EMAIL</div>" +
+                    "<img src='https://afiles.webengage.com/11b564b63/0293e4ac-a91e-404a-b073-b556641f81a3.png' alt='Congratulations' style='display:block;max-width:100%;height:auto;'/><br>" + "<div class='kd1'>YOUR EXCLUSIVE CODE IS ON ITS WAY <br> VIA WHATSAPP & EMAIL</div>" +
                     "<a href='https://www.pngjewellers.com/collections/ramadan-offers' style='display:inline-block;padding:10px 22px;background-color:#c4a69f;color:#ffffff;font-size:13px;letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;border-radius:50px;font-weight:600;border:none;transition:all 0.3s ease;'>Explore Collection</a>";
             } else {
                 msg.innerHTML =

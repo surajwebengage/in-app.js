@@ -32,7 +32,6 @@
         }
 
         body {
-            font-family: "DINOT";
             width: 300px;
             display: flex;
             flex-direction: column;
@@ -51,22 +50,23 @@
 
         span.t1 {
             font-size: 21px;
-            color: #fcd988;
-            font-weight: bold;
-            font-family: "PlayfairDisplay-VariableFont_wght";
-            
+            color: #91553d;
+            font-weight: 300;
+            font-family: "Gill Sans";
+            text-align: center;
+
         }
 
         .kd1 {
-    font-size: 16px;
+            font-size: 16px;
             margin-top: 12px;
             margin-bottom: 15px;
             color: #91553d;
             font-weight: 300;
             font-family: "Gill Sans";
             text-align: center;
-                text-align: center;
-    line-height: 1.4;
+            text-align: center;
+            line-height: 1.4;
 
         }
 
@@ -85,7 +85,7 @@
 
     <div id="we_header" style="padding:10px;text-align:center;margin-top:5px"></div>
 
-    
+
     <canvas id="canvas" width="700" height="700"></canvas>
 
     <div id="myList" style="padding:10px;text-align:center;margin-top:5px"></div>
@@ -221,11 +221,10 @@ color:#fff;" onclick="calculatePrize();">
 
             if (code) {
 
-                headerMsg.innerHTML = "<span class='t1'>You've won " + prizeText + "</span>";
+                headerMsg.innerHTML = "<span class='t1'>You have won " + prizeText + "</span>";
 
                 msg.innerHTML =
-                    "<span class='t1'>Congratulations!</span><br>" +
-                    "<div class='kd1'>YOUR EXCLUSIVE CODE IS ON ITS WAY <br> VIA WHATSAPP & EMAIL</div>" +
+                    "<img src='https://afiles.webengage.com/11b564b63/4ef06e2c-f66d-48a2-8bd2-9eea48a67c09.png' alt='Congratulations' style='display:block;max-width:100%;height:auto;margin:0 auto 10px;' /><br>" + "<div class='kd1'>YOUR EXCLUSIVE CODE IS ON ITS WAY <br> VIA WHATSAPP & EMAIL</div>" +
                     "<a href='https://www.pngjewellers.com/collections/ramadan-offers' style='display:inline-block;padding:10px 22px;background:linear-gradient(135deg,#c9b2a8,#a88f84);color:#ffffff;font-size:13px;letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;border-radius:50px;font-weight:600;border:none;transition:all 0.3s ease;box-shadow:0 4px 12px rgba(0,0,0,0.15);'>Explore Collection</a>";
             } else {
                 msg.innerHTML =
@@ -236,7 +235,7 @@ color:#fff;" onclick="calculatePrize();">
             document.getElementById("myList").innerHTML = "";
             document.getElementById("myList").appendChild(msg);
 
-                document.getElementById("we_header").innerHTML = "";
+            document.getElementById("we_header").innerHTML = "";
             document.getElementById("we_header").appendChild(headerMsg);
 
             document.getElementById("spin_button").style.display = "none";

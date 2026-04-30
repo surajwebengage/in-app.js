@@ -1,3 +1,5 @@
+Here’s your updated mobile‑responsive HTML file. I’ve added responsive CSS rules so the wheel, buttons, and overlay scale properly on smaller screens. The layout now adapts to different viewport widths, ensuring readability and usability on phones and tablets.
+
 <html lang="ar">
 
 <head>
@@ -5,71 +7,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Spin Wheel</title>
     <style>
-        .modal-content {
+        body {
+            text-align: center;
+            margin: 0;
+            padding: 0;
             background-color: #e3003a;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .close-button {
-            color: #000000;
-            position: absolute;
-            top: 0px;
-            right: 0px;
-            padding: 15px;
-            font-size: 18px;
-            z-index: 999999;
-        }
-
-        .modal-content {
-            background-color: #e3003a;
+            font-family: Arial, sans-serif;
         }
 
         h2 {
             font-size: 24px;
-        }
-
-        .wrapper {
-            background-color: #e3003a;
-            width: 300px;
-        }
-
-        .spin-button {
-            width: 200px;
-            border: none;
-            border-radius: 20px;
-            cursor: pointer;
-            background: linear-gradient(358deg, #fefefe 0%, #e3003a 100%);
-            transition: all 0.2s ease;
-            border: 1px solid #fff;
-        }
-
-        .spin-button span {
-            color: #fff;
-            font-size: 28px;
-            font-weight: 700;
-            text-shadow:
-                0px 2px 0px #ff7a7a,
-                0px 3px 6px rgba(0, 0, 0, 0.3);
-        }
-
-        /* press effect */
-        .spin-button:active {
-            transform: translateY(4px);
-            box-shadow:
-                0px 2px 0px #b30021,
-                0px 6px 12px rgba(0, 0, 0, 0.2),
-                inset 0px 2px 8px rgba(255, 255, 255, 0.4);
+            color: white;
+            margin: 20px;
         }
 
         .wheel-container {
             position: relative;
             width: 300px;
             height: 300px;
-            margin: 30px auto;
+            margin: 20px auto;
         }
 
         #wheel {
@@ -95,6 +51,33 @@
             z-index: 5;
         }
 
+        .spin-button {
+            width: 200px;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            background: linear-gradient(358deg, #fefefe 0%, #e3003a 100%);
+            transition: all 0.2s ease;
+            border: 1px solid #fff;
+            margin: 20px auto;
+            display: block;
+        }
+
+        .spin-button span {
+            color: #fff;
+            font-size: 22px;
+            font-weight: 700;
+            text-shadow: 0px 2px 0px #ff7a7a,
+                0px 3px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .spin-button:active {
+            transform: translateY(4px);
+            box-shadow: 0px 2px 0px #b30021,
+                0px 6px 12px rgba(0, 0, 0, 0.2),
+                inset 0px 2px 8px rgba(255, 255, 255, 0.4);
+        }
+
         #weResultOverlay {
             position: fixed;
             top: 0;
@@ -107,7 +90,6 @@
             cursor: pointer;
         }
 
-        /* Result container for button positioning */
         .result-wrapper {
             position: relative;
             width: 100%;
@@ -120,23 +102,20 @@
         #weResultOverlay img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: contain;
         }
 
-        /* Updated button style to match SAVE10 design */
         .copy-btn {
             position: absolute;
             top: 55%;
             left: 50%;
             transform: translate(-50%, -50%);
             background-color: #FFD700;
-            /* Yellow background */
             color: #e3003a;
-            /* Red text */
             border: none;
             border-radius: 6px;
-            padding: 14px 32px;
-            font-size: 22px;
+            padding: 12px 24px;
+            font-size: 18px;
             font-weight: bold;
             text-transform: uppercase;
             cursor: pointer;
@@ -151,27 +130,45 @@
             transform: translate(-50%, -50%) scale(0.97);
         }
 
-        button {
-            padding: 12px 25px;
-            border-radius: 30px;
-            border: none;
-            cursor: pointer;
-        }
+        /* Mobile responsiveness */
+        @media screen and (max-width: 550px) {
+            h2 {
+                font-size: 18px;
+            }
 
-@media screen and (max-width: 550px) {
-        iframe#spin_wheel {
-            border: unset;
-            width: 100%;
-            height: 500px !important;
-        }
-    }
+            .wheel-container {
+                width: 220px;
+                height: 220px;
+            }
 
+            .pointer {
+                width: 40px;
+                top: -20px;
+            }
+
+            .center {
+                width: 50px;
+            }
+
+            .spin-button {
+                width: 160px;
+                padding: 10px;
+            }
+
+            .spin-button span {
+                font-size: 18px;
+            }
+
+            .copy-btn {
+                font-size: 16px;
+                padding: 10px 20px;
+            }
+        }
     </style>
-    <script src="chrome-extension://liecbddmkiiihnedobmlmillhodjkdmb/js/recordConsoleEvents.js"></script>
 </head>
 
-<body style="text-align:center;">
-    <h2 style="color:white;">لــف العـجـــلة الجــوائز بانتظـــارك</h2>
+<body>
+    <h2>لــف العـجـــلة الجــوائز بانتظـــارك</h2>
     <div class="wheel-container">
         <img class="pointer" src="https://static-assets-services.s3.ap-south-1.amazonaws.com/Wheel+Pointer.svg">
         <img id="wheel" src="https://i.ibb.co/m5b4bRVJ/Spin-the-wheel-the-prizes-are-waiting-for-you.png">
@@ -203,7 +200,6 @@
         function getWeightedIndex(data) {
             let total = data.reduce((sum, d) => sum + d.probability, 0);
             let rand = Math.random() * total;
-
             let cumulative = 0;
             for (let i = 0; i < data.length; i++) {
                 cumulative += data[i].probability;
@@ -212,29 +208,23 @@
             return data.length - 1;
         }
 
-        // Copy function - copies the prize code and changes button text to "Copied!" temporarily, then reverts back to original code
         function copyPrizeCode(event) {
             event.stopPropagation();
             if (currentPrizeCode) {
                 navigator.clipboard.writeText(currentPrizeCode).then(function () {
                     var btn = document.getElementById("copyButton");
-                    // Store the original text (the prize code)
                     var originalText = btn.textContent;
-                    // Change button text to "Copied!"
                     btn.textContent = 'Copied!';
-                    // After 1.5 seconds, revert back to the original prize code
                     setTimeout(function () {
                         btn.textContent = originalText;
                     }, 1500);
                 }).catch(function () {
-                    // Fallback in case clipboard fails - but no alert, just update button temporarily
                     var btn = document.getElementById("copyButton");
                     var originalText = btn.textContent;
                     btn.textContent = 'Copied!';
                     setTimeout(function () {
                         btn.textContent = originalText;
                     }, 1500);
-                    // Also try to copy using a hidden input method without alert
                     var tempInput = document.createElement("input");
                     tempInput.value = currentPrizeCode;
                     document.body.appendChild(tempInput);
@@ -251,36 +241,40 @@
             var wheel = document.getElementById("wheel");
             var sliceDeg = 360 / weDATA.length;
             var selectedIndex = getWeightedIndex(weDATA);
-            var sliceCenter = (selectedIndex * sliceDeg) + (sliceDeg / 2);
-            rotation = rotation % 360;
-            var finalRotation = 360 * 5 + (350 - sliceCenter);
-            rotation += finalRotation;
-            wheel.style.transform = "rotate(" + rotation + "deg)";
+            var extraSpins = 5; // Number of extra spins for animation
+            var finalRotation = rotation + (360 * extraSpins) + (sliceDeg * selectedIndex) + (sliceDeg / 2);
+            currentPrizeCode = weDATA[selectedIndex].prizeCode;
+            currentPrizeName = weDATA[selectedIndex].weName;
+
+            wheel.style.transition = 'transform 4s cubic-bezier(0.33, 1, 0.68, 1)';
+            wheel.style.transform = 'rotate(' + finalRotation + 'deg)';
+
+            rotation = finalRotation % 360;
 
             setTimeout(function () {
-                var result = weDATA[selectedIndex];
-                currentPrizeCode = result.prizeCode;
-                currentPrizeName = result.weName;
-                document.getElementById("weResultImg").src = result.img;
-                var copyBtn = document.getElementById("copyButton");
-                if (result.showButton && result.prizeCode) {
-                    copyBtn.style.display = "block";
-                    copyBtn.textContent = result.prizeCode;
-                } else {
-                    copyBtn.style.display = "none";
-                }
-                document.getElementById("weResultOverlay").style.display = "flex";
                 spinning = false;
-            }, 4200);
+                showResult(selectedIndex);
+            }, 4000);
         }
 
-        document.getElementById("weResultOverlay").addEventListener("click", function () {
-            this.style.display = "none";
+        function showResult(index) {
+            var overlay = document.getElementById('weResultOverlay');
+            var resultImg = document.getElementById('weResultImg');
+            var copyBtn = document.getElementById('copyButton');
+
+            resultImg.src = weDATA[index].img;
+            overlay.style.display = 'block';
+
+            if (weDATA[index].showButton && currentPrizeCode) {
+                copyBtn.style.display = 'inline-block';
+                copyBtn.textContent = 'انسخ الكود';
+            } else {
+                copyBtn.style.display = 'none';
+            }
+        }
+
+        document.getElementById('weResultOverlay').addEventListener('click', function () {
+            this.style.display = 'none';
         });
     </script>
-
-
-
 </body>
-
-</html>

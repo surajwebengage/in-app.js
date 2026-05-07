@@ -32,6 +32,15 @@
       src: url('https://static-assets-services.s3.ap-south-1.amazonaws.com/GillSans+Condensed+Bold.otf') format('opentype');
     }
 
+    body {
+          display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: absolute;
+    top: 22%;
+    }
+
     td.the_wheel,
     canvas#canvas {
       width: 75%;
@@ -68,14 +77,13 @@
 
     span.prizeText {
       display: block;
-      margin: 20px;
-      color: #91553d;
-      font-weight: 300;
-      font-family: 'Gill Sans';
-      text-align: center;
-      font-size: 68px;
-      display: block;
-      font-weight: 500;
+    margin-top: 20px;
+    color: #91553d;
+    font-family: 'Gill Sans';
+    text-align: center;
+    font-weight: 500;
+    font-size: 68px;
+    letter-spacing: 0px;
     }
 
     .hidden-data {
@@ -253,7 +261,7 @@
     "<a href='https://www.pngjewellers.com/collections/ramadan-offers' style='display:inline-block;padding:8px 10px;background-color:#c4a69f;color:#ffffff;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;border-radius:50px;font-weight:600;border:none;transition:all 0.3s ease;'>Explore Collection</a>";
 
   document.getElementById('canvas').style.display = 'none';
-  document.getElementById('myList').style.marginTop = '25%';
+  //document.getElementById('myList').style.marginTop = '25%';
 
   document.getElementById('myList').innerHTML = '';
   document.getElementById('myList').appendChild(msg);

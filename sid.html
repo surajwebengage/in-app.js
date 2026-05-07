@@ -37,8 +37,6 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    position: absolute;
-    top: 22%;
     }
 
     td.the_wheel,
@@ -261,7 +259,9 @@
     "<a href='https://www.pngjewellers.com/collections/ramadan-offers' style='display:inline-block;padding:8px 10px;background-color:#c4a69f;color:#ffffff;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;border-radius:50px;font-weight:600;border:none;transition:all 0.3s ease;'>Explore Collection</a>";
 
   document.getElementById('canvas').style.display = 'none';
-  //document.getElementById('myList').style.marginTop = '25%';
+  document.querySelector('body').style.position = 'absolute';
+  document.querySelector('body').style.top = '25%';
+
 
   document.getElementById('myList').innerHTML = '';
   document.getElementById('myList').appendChild(msg);

@@ -32,12 +32,7 @@
       src: url('https://static-assets-services.s3.ap-south-1.amazonaws.com/GillSans+Condensed+Bold.otf') format('opentype');
     }
 
-    body {
-          display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    }
+  
 
     td.the_wheel,
     canvas#canvas {
@@ -45,7 +40,7 @@
       max-width: 320px;
       background-size: cover;
       background-position: center;
-      margin: 50px auto;
+      margin: 20px auto;
       display: block;
     }
 
@@ -115,16 +110,24 @@
       <td>
         <div id="spin_button">
           <p style="
-                padding: 10px;
-                cursor: pointer;
-                width: 70%;
-                margin: auto;
-                background: #b08f85;
-                font-size: 26px;
-                font-weight: 900;
-                font-family: 'GillSansBold.otf';
-                letter-spacing: 1px;
-                color: #fff;
+              padding: 12px 20px;
+    cursor: pointer;
+    width: 70%;
+    margin: 0 auto;
+    background: #b08f85;
+    font-size: 26px;
+    font-weight: 900;
+    font-family: 'GillSansBold', sans-serif;
+    letter-spacing: 1px;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    text-align: center;
+    line-height: 1.2;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
               " onclick="calculatePrize();">
             SPIN NOW!
           </p>
@@ -221,10 +224,10 @@
   let seg = theWheel.getIndicatedSegment();
 
   // fallback protection
-  let prizeText = seg && seg.text ? seg.text : '10% Off';
+  let prizeText = seg && seg.text ? seg.text : '';
 
   // ALWAYS generate a winning code
-  let code = PRIZE_CODES[prizeText] || prizeText || '10% Off';
+  let code = PRIZE_CODES[prizeText];
 
   document.getElementById('couponCode').textContent = code;
   document.getElementById('offerWon').textContent = prizeText;
@@ -259,8 +262,8 @@
     "<a href='https://www.pngjewellers.com/collections/ramadan-offers' style='display:inline-block;padding:8px 10px;background-color:#c4a69f;color:#ffffff;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;border-radius:50px;font-weight:600;border:none;transition:all 0.3s ease;'>Explore Collection</a>";
 
   document.getElementById('canvas').style.display = 'none';
-document.querySelector('body').style.position = 'absolute';
-document.querySelector('body').style.top = '25%';
+// document.querySelector('body').style.position = 'absolute';
+// document.querySelector('body').style.top = '25%';
 
 
   document.getElementById('myList').innerHTML = '';

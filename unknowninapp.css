@@ -25,6 +25,7 @@
       border: none;
       border-radius: 30px;
       letter-spacing: 1px;
+    direction: rtl;
   }
 
   button#startSpinBtn {

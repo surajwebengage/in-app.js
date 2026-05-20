@@ -23,7 +23,8 @@ const feedbackConfig = {
             "Product(s) out of stock",
             "Not happy with offers & promotions",
             "Return and Refund policy issue",
-            "Complaint resolution/customer support not satisfactory"
+            "Complaint resolution/customer support not satisfactory",
+            "Others"
         ]
     },
 
@@ -44,7 +45,8 @@ const feedbackConfig = {
             "Product availability can be better",
             "Offers & promotions can be better",
             "Return and Refund policy should be better",
-            "Complaint resolution/customer support should be faster"
+            "Complaint resolution/customer support should be faster",
+            "Others"
         ]
     },
 

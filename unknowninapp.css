@@ -105,7 +105,7 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      row-gap: 4em;
+      row-gap: 3em;
       z-index: 999;
   }
 

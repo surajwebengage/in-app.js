@@ -1,0 +1,285 @@
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KWD Spin · WhatsApp notification</title>
+
+  <script src="https://cdn.rawgit.com/zarocknz/javascript-winwheel/2.6/Winwheel.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"></script>
+
+  <style>
+    @font-face {
+      font-family: 'GillSansBold.otf';
+      src: url('https://static-assets-services.s3.ap-south-1.amazonaws.com/Gill+Sans+Bold.otf') format('opentype');
+    }
+
+    @font-face {
+      font-family: 'GillSansMedium.otf';
+      src: url('https://static-assets-services.s3.ap-south-1.amazonaws.com/Gill+Sans+Medium.otf') format('opentype');
+    }
+
+    @font-face {
+      font-family: 'GillSans.otf';
+      src: url('https://static-assets-services.s3.ap-south-1.amazonaws.com/Gill+Sans.otf') format('opentype');
+    }
+
+    @font-face {
+      font-family: 'GillSansCondensedBold.otf';
+      src: url('https://static-assets-services.s3.ap-south-1.amazonaws.com/GillSans+Condensed+Bold.otf') format('opentype');
+    }
+
+  
+
+    td.the_wheel,
+    canvas#canvas {
+      width: 75%;
+      max-width: 320px;
+      background-size: cover;
+      background-position: center;
+      margin: 20px auto;
+      display: block;
+    }
+
+    span.t1 {
+      font-size: 21px;
+      color: #91553d;
+      font-weight: 300;
+      font-family: 'Gill Sans';
+      text-align: center;
+    }
+
+    .kd1 {
+      font-size: 16px;
+      margin-bottom: 15px;
+      color: #91553d;
+      font-weight: 300;
+      font-family: 'Gill Sans';
+      text-align: center;
+      text-align: center;
+      line-height: 1.4;
+      direction: rtl;
+    }
+
+    .prize-message {
+      margin-top: 15px;
+      text-align: center;
+    }
+
+    span.prizeText {
+      display: block;
+    margin-top: 10px;
+    color: #91553d;
+    font-family: 'Gill Sans';
+    text-align: center;
+    font-weight: 500;
+    font-size: 68px;
+    letter-spacing: 0px;
+    }
+
+    .hidden-data {
+      display: none;
+    }
+
+    @media screen and (max-width: 600px) {
+
+      td.the_wheel,
+      canvas#canvas {
+        width: 80%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="we_header" style="padding-bottom: 10px; text-align: center; position:relative;top:31px;"></div>
+
+  <canvas id="canvas" width="700" height="700"></canvas>
+
+  <div id="myList" style="text-align: center"></div>
+
+  <div class="hidden-data">
+    <span id="couponCode"></span>
+    <span id="offerWon"></span>
+  </div>
+
+  <table style="width: 100%; text-align: center">
+    <tr>
+      <td>
+        <div id="spin_button">
+          <p style="
+          direction: rtl;
+              padding: 12px 20px;
+    cursor: pointer;
+    width: 70%;
+    margin: 0 auto;
+    background: #b08f85;
+    font-size: 26px;
+    font-weight: 900;
+    font-family: 'GillSansBold', sans-serif;
+    letter-spacing: 1px;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    text-align: center;
+    line-height: 1.2;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+              " onclick="calculatePrize();">
+            تدور الآن!
+          </p>
+        </div>
+      </td>
+    </tr>
+  </table>
+
+  <script>
+    const SEGMENT_TEXTS = [
+      '10% Off',
+      '15% Off',
+      '20% Off',
+      '25% Off',
+      '30% Off',
+    ];
+
+    const PRIZE_CODES = {
+      '10% Off': 'STWGU10',
+      '15% Off': 'STWGU15',
+      '20% Off': 'STWGU20',
+      '25% Off': 'STWGU25',
+      '30% Off': 'STWGU30',
+    };
+
+  const PRIZE_INDEXES = {
+  '10% Off': [0],
+  '15% Off': [1],
+  '20% Off': [2],
+  '25% Off': [3],
+  '30% Off': [4],
+};
+    const PROB_TABLE = [
+      { prize: '10% Off', prob: 0.2 },
+      { prize: '15% Off', prob: 0.2 },
+      { prize: '20% Off', prob: 0.2 },
+      { prize: '25% Off', prob: 0.2 },
+      { prize: '30% Off', prob: 0.2 },
+    ];
+
+    let theWheel = new Winwheel({
+      numSegments: 5,
+      outerRadius: 260,
+      drawMode: 'image',
+      rotationAngle: -14,
+      segments: SEGMENT_TEXTS.map((t) => ({ text: t })),
+      animation: {
+        type: 'spinToStop',
+        duration: 5,
+        spins: 6,
+        callbackFinished: 'logChore()',
+      },
+    });
+
+    let wheelSpinning = false;
+
+    function calculatePrize() {
+      if (wheelSpinning) return;
+
+      let rnd = Math.random();
+      let cumulative = 0;
+      let selectedPrize = null;
+
+      for (let entry of PROB_TABLE) {
+        cumulative += entry.prob;
+        if (rnd < cumulative) {
+          selectedPrize = entry.prize;
+          break;
+        }
+      }
+
+      let possibleIndexes = PRIZE_INDEXES[selectedPrize];
+      let chosenIndex =
+        possibleIndexes[Math.floor(Math.random() * possibleIndexes.length)];
+
+      theWheel.animation.stopAngle = chosenIndex * 45 + 60;
+      theWheel.startAnimation();
+
+      wheelSpinning = true;
+      // setTimeout(() => {
+      //     document.getElementById("canvas").style.display = "none";
+      // }, 100);
+    }
+
+    let img = new Image();
+    img.onload = function () {
+      theWheel.wheelImage = img;
+      theWheel.draw();
+    };
+    img.src =
+      'https://afiles.webengage.com/11b564b63/f1b25ca8-81f9-4aa0-869a-7ff49b5f53e4.png';
+
+    function logChore() {
+  let seg = theWheel.getIndicatedSegment();
+
+  // fallback protection
+  let prizeText = seg && seg.text ? seg.text : '';
+
+  // ALWAYS generate a winning code
+  let code = PRIZE_CODES[prizeText];
+
+  document.getElementById('couponCode').textContent = code;
+  document.getElementById('offerWon').textContent = prizeText;
+
+  setTimeout(() => {
+    window.parent.parent.postMessage(
+      {
+        type: 'couponCode',
+        value: code,
+        offerWon: prizeText,
+        UserType : 'Known' 
+      },
+      '*'
+    );
+  }, 100);
+
+  let msg = document.createElement('div');
+  msg.className = 'prize-message';
+
+  let headerMsg = document.createElement('div');
+  headerMsg.className = 'prize-header';
+
+  // ALWAYS WIN
+  headerMsg.innerHTML =
+    "<span class='t1'>لقــد ربحـــت </span>" +
+    "<span class='prizeText'>" +
+    prizeText +
+    '</span>';
+
+  msg.innerHTML =
+    "<img src='https://afiles.webengage.com/11b564b63/383348bb-38f6-4208-8bc3-dcd1a85950e3.png' alt='Congratulations' style='display:block;max-width:70%;height:auto;margin: 0 auto;' /><br>" +
+    "<div class='kd1'>رمزك الحصري في طريقه إليك<br>عبر الواتساب والبريد الإلكتروني</div>" +
+                "<p onclick=\"window.top.location.href='https://ontime.com/ar'\" style='display:inline-block;padding:8px 10px;background-color:#c4a69f;color:#ffffff;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;border-radius:50px;font-weight:600;border:none;transition:all 0.3s ease;'>استكشاف المجموعة</p>";
+
+  document.getElementById('canvas').style.display = 'none';
+
+
+  document.getElementById('myList').innerHTML = '';
+  document.getElementById('myList').appendChild(msg);
+
+  document.getElementById('we_header').innerHTML = '';
+  document.getElementById('we_header').appendChild(headerMsg);
+
+  document.getElementById('spin_button').style.display = 'none';
+}
+  </script>
+</body>
+
+</html>

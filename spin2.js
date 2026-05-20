@@ -1,4 +1,4 @@
-(function () {
+  (function () {
     const formContainer = document.getElementById('userFormContainer');
     const startBtn = document.getElementById('startSpinBtn');
     const nameInput = document.getElementById('userName');
@@ -41,7 +41,7 @@
         };
         try {
             weNotification.trackEvent(
-                'In-app Template submitted',
+                'unknown in app template spin',
                 JSON.stringify({
                     name: userData.name,
                     email: userData.email,

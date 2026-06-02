@@ -35,6 +35,7 @@
             isValid = false;
         }
         if (!isValid) return;
+              console.log(document.getElementById('countryCode').textContent);
         const userData = {
             name: nameInput.value.trim(),
             email: emailInput.value.trim(),

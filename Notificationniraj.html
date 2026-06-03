@@ -385,7 +385,7 @@ function trackWebEngageEvent(e) {
             reward_type: e.type,
             spin_number: sCount
         };
-        "undefined" != typeof webengage && webengage.track && webengage.track("wheel_spin_result", t);
+        window.parent.webengage.track("wheel_spin_result", t);
     } catch (e) {
         console.error("WebEngage tracking error:", e)
     }

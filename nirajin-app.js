@@ -187,10 +187,6 @@ ro.onclick = function(e) {
     e.target === ro && closeInApp()
 }, document.addEventListener("click", function(e) {
     if (e.target && "imageRewardCloseBtn" === e.target.id) return e.preventDefault(), closeInApp(), !1;
-    if (e.target && e.target.classList && e.target.classList.contains("fullReward")) {
-        var t = document.getElementById("rc");
-        t && t.querySelector("img.fullReward") && !t.querySelector(".couponBox") && (e.preventDefault(), e.stopPropagation(), closeInApp())
-    }
 }), addEventListener("load", () => {
     wheel.style.transform = "rotate(0deg)", curRot = 0, sP()
 }), window.copyCoupon = copyCoupon, window.spin = spin, window.closeInApp = closeInApp, "undefined" == typeof weNotification && (window.weNotification = {

@@ -1,4 +1,4 @@
-var D = [{
+ var D = [{
         weName: "100 ZingCoins",
         wePercWght: 25,
         type: "image",

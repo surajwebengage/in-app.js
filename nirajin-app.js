@@ -23,7 +23,7 @@ var D = [{
         type: "coupon",
         expiry: "10th June",
         img: "https://static-assets-services.s3.ap-south-1.amazonaws.com/money-stack-with-shield-icon-3d-illustration-background+(1)+1.png",
-        redirect: "https://www.zingoy.com/gift-cards/zingoy",
+        redirect: "https://www.zingoy.com/gift-cards",
         rewardText: "Flat 10% cashback on your next gift card purchase",
         userText: "( max ₹25 once per user )"
     }, {

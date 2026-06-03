@@ -1,4 +1,4 @@
- var D = [{
+var D = [{
         weName: "100 ZingCoins",
         wePercWght: 25,
         type: "image",
@@ -148,12 +148,10 @@ var n = document.getElementById("imageRewardCloseBtn");
 if (n) {
     n.onclick = function(event) {
         event.stopPropagation();
-
-        if (e.img === "https://afiles.webengage.com/~15ba1dbb5/724d1383-891b-4868-b85a-4420568909a5.png" || e.img === "https://static-assets-services.s3.ap-south-1.amazonaws.com/money-stack-with-shield-icon-3d-illustration-background+(1)+1.png") {
-            weNotification.close();
-        } else {
-            closeInApp();
+        if (e.redirect) {
+            window.location.href = e.redirect;
         }
+        closeInApp();
     };
 }
     }

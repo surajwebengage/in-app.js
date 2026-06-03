@@ -1,14 +1,194 @@
-var D=[{weName:"100 ZingCoins",wePercWght:25,type:"image",img:"https://afiles.webengage.com/~15ba1dbb5/724d1383-891b-4868-b85a-4420568909a5.png",redirect:"https://www.zingoy.com/refer-and-earn?ref=home_earn_section"},{weName:"10 ZingCoins",wePercWght:25,type:"image",img:"https://afiles.webengage.com/~15ba1dbb5/c9b7a897-d518-4540-aa75-a133c1e8c405.png",redirect:"https://www.zingoy.com/refer-and-earn?ref=home_earn_section"},{weName:"JBL Lucky Draw",wePercWght:25,type:"image",img:"https://afiles.webengage.com/~15ba1dbb5/1d65299c-e5bb-4803-9f46-23db2efe2d8f.png",redirect:"https://www.zingoy.com/refer-and-earn?ref=home_earn_section"},{weName:"10% Cashback",weCode:"BDAY10",wePercWght:25,type:"coupon",expiry:"10th June",img:"https://static-assets-services.s3.ap-south-1.amazonaws.com/money-stack-with-shield-icon-3d-illustration-background+(1)+1.png",redirect:"https://www.zingoy.com/gift-cards/zingoy",rewardText:"Flat 10% cashback on your next gift card purchase",userText:"( max ₹25 once per user )"},{weName:"₹5 Cashback",weCode:"ZDAY5",wePercWght:25,type:"coupon",expiry:"15th June",img:"https://static-assets-services.s3.ap-south-1.amazonaws.com/ChatGPT+Image+May+27%2C+2026%2C+09_58_28+AM+1.png",redirect:"https://www.zingoy.com/gift-cards/zingoy",rewardText:"You won ₹5 cashback on ₹10 Zingoy Voucher",userText:"( Once per user )"}],spinning=0,sCount=0,curRot=0,sTo=null,pi=document.getElementById("pi"),wheel=document.getElementById("wheel"),ro=document.getElementById("ro"),rc=document.getElementById("rc"),cv=document.getElementById("cc"),cx=cv.getContext("2d"),cp=[],craf=null,cols=["#ffe600","#ff3b82","#0a3a91","#fff","#ff9800","#4caf50","#e91e63","#00bcd4"];
-function hP(){pi&&(pi.style.opacity=0,pi.style.visibility="hidden")}
-function sP(){pi&&(pi.style.opacity=1,pi.style.visibility="visible")}
-function rndIdx(){var e=[];return D.forEach((t,n)=>{for(var o=0;o<(t.wePercWght||0);o++)e.push(n)}),e[Math.floor(Math.random()*e.length)]}
-function rotFor(e){var t=360/D.length;return(90-(e*t+t/2)+160+360)%360}
-function showToast(e){var t=document.querySelector(".toast");t&&t.remove();var n=document.createElement("div");n.className="toast",n.innerText=e,document.body.appendChild(n),setTimeout(()=>{n.style.opacity=0,setTimeout(()=>n.remove(),300)},2e3)}
-function launchConfetti(){cv.width=innerWidth,cv.height=innerHeight,cv.style.display="block",cp=[];for(var e=0;e<120;e++)cp.push({x:Math.random()*cv.width,y:-10-100*Math.random(),w:6+6*Math.random(),h:3+4*Math.random(),color:cols[Math.floor(Math.random()*cols.length)],rot:360*Math.random(),vx:3*(Math.random()-.5),vy:2+3*Math.random(),vr:8*(Math.random()-.5),o:1});craf&&cancelAnimationFrame(craf),craf=requestAnimationFrame(function e(){cx.clearRect(0,0,cv.width,cv.height);var t=0;cp.forEach(e=>{e.x+=e.vx,e.y+=e.vy,e.rot+=e.vr,e.y>.7*cv.height&&(e.o-=.03),e.o>0&&e.y<cv.height+20&&(t=1,cx.save(),cx.globalAlpha=Math.max(0,e.o),cx.translate(e.x,e.y),cx.rotate(e.rot*Math.PI/180),cx.fillStyle=e.color,cx.fillRect(-e.w/2,-e.h/2,e.w,e.h),cx.restore())}),t?craf=requestAnimationFrame(e):cv.style.display="none"})}
-function stopConfetti(){craf&&cancelAnimationFrame(craf),cv.style.display="none",cp=[]}
-function trackWebEngageEvent(e){try{var t={campaign_id:"311m1r9",result_value:e.weName,coupon_code:e.weCode||null,reward_type:e.type,spin_number:sCount};console.log("WebEngage Event Data:",t),console.log("WebEngage Event Data (Stringified):",JSON.stringify(t)),"undefined"!=typeof weNotification&&weNotification.trackEvent?weNotification.trackEvent("wheel_spin_result",JSON.stringify(t),!1):console.log("WebEngage not available, event logged only in console")}catch(e){console.error("WebEngage tracking error:",e)}}
-function copyCoupon(){var e=document.getElementById("cc2");if(e){var t=e.innerText.trim();navigator.clipboard.writeText(t).catch(function(e){var n=document.createElement("textarea");n.value=t,document.body.appendChild(n),n.select(),document.execCommand("copy"),document.body.removeChild(n)}),showToast("✓ "+t+" copied!")}}
-function closeInApp(){"undefined"!=typeof weNotification&&weNotification.close&&weNotification.close(),ro.style.display="none",sP(),stopConfetti()}
-function showReward(e){if(trackWebEngageEvent(e),launchConfetti(),hP(),"image"!==e.type){var t="10% Cashback"===e.weName?"Buy gift cards and save instantly":"Won ₹5 cashback coupon";rc.innerHTML=`<div class="rewardWrap"><h1 class="rewardHeading">Congratulations!</h1><p class="rewardSubHeading">${t}</p><div class="rewardCard"><img class="rewardImage" src="${e.img}"><div class="rewardText">${e.rewardText}</div><div class="userText">${e.userText||""}</div><div class="couponBox"><span class="couponCode" id="cc2">${e.weCode}</span><span onclick="copyCoupon()"><img src="https://afiles.webengage.com/~15ba1dbb5/5d48edc6-cd21-4d07-8e59-806bb1f57e29.png" style="width:24px"></span></div><div class="expiryText">Expiry - ${e.expiry}</div></div><button class="copyBtn" onclick="copyCoupon()">Copy Coupon Code</button><button class="buyBtn" onclick="window.open('${e.redirect}','_blank'); closeInApp();">Buy Now</button></div>`,ro.style.display="flex"}else{rc.innerHTML=`<img src="${e.img}" class="fullReward" id="imageRewardCloseBtn" style="cursor:pointer;">`,ro.style.display="flex";var n=document.getElementById("imageRewardCloseBtn");n&&(n.onclick=function(e){e.stopPropagation(),closeInApp()})}}
-function spin(){if(spinning)showToast("Wait, still spinning!");else{spinning=1,sCount++;var e=document.querySelector(".spin-btn");e.style.opacity=.7,e.disabled=!0;var t=rndIdx(),n=D[t],o=rotFor(t)+360*(8+Math.floor(8*Math.random()));wheel.style.transition="transform 6s cubic-bezier(0.25,0.1,0.2,1)",wheel.style.transform="rotate("+o+"deg)",curRot=o;try{var a=JSON.parse(localStorage.getItem("z_hist")||"[]");a.push({n:sCount,p:n.weName,c:n.weCode||"",t:(new Date).toISOString()}),a.length>20&&a.shift(),localStorage.setItem("z_hist",JSON.stringify(a))}catch(e){}sTo&&clearTimeout(sTo),sTo=setTimeout(()=>{showReward(n),e.style.opacity=1,e.disabled=!1,spinning=0,setTimeout(()=>{wheel.style.transition=""},100)},6e3)}}
-ro.onclick=function(e){e.target===ro&&closeInApp()},document.addEventListener("click",function(e){if(e.target&&"imageRewardCloseBtn"===e.target.id)return e.preventDefault(),closeInApp(),!1;if(e.target&&e.target.classList&&e.target.classList.contains("fullReward")){var t=document.getElementById("rc");t&&t.querySelector("img.fullReward")&&!t.querySelector(".couponBox")&&(e.preventDefault(),e.stopPropagation(),closeInApp())}}),addEventListener("load",()=>{wheel.style.transform="rotate(0deg)",curRot=0,sP()}),window.copyCoupon=copyCoupon,window.spin=spin,window.closeInApp=closeInApp,"undefined"==typeof weNotification&&(window.weNotification={trackEvent:function(){},close:function(){ro.style.display="none",sP(),stopConfetti()}})
+var D = [{
+        weName: "100 ZingCoins",
+        wePercWght: 25,
+        type: "image",
+        img: "https://afiles.webengage.com/~15ba1dbb5/724d1383-891b-4868-b85a-4420568909a5.png",
+        redirect: "https://www.zingoy.com/refer-and-earn?ref=home_earn_section"
+    }, {
+        weName: "10 ZingCoins",
+        wePercWght: 25,
+        type: "image",
+        img: "https://afiles.webengage.com/~15ba1dbb5/c9b7a897-d518-4540-aa75-a133c1e8c405.png",
+        redirect: "https://www.zingoy.com/refer-and-earn?ref=home_earn_section"
+    }, {
+        weName: "JBL Lucky Draw",
+        wePercWght: 25,
+        type: "image",
+        img: "https://afiles.webengage.com/~15ba1dbb5/1d65299c-e5bb-4803-9f46-23db2efe2d8f.png",
+        redirect: "https://www.zingoy.com/refer-and-earn?ref=home_earn_section"
+    }, {
+        weName: "10% Cashback",
+        weCode: "BDAY10",
+        wePercWght: 25,
+        type: "coupon",
+        expiry: "10th June",
+        img: "https://static-assets-services.s3.ap-south-1.amazonaws.com/money-stack-with-shield-icon-3d-illustration-background+(1)+1.png",
+        redirect: "https://www.zingoy.com/gift-cards/zingoy",
+        rewardText: "Flat 10% cashback on your next gift card purchase",
+        userText: "( max ₹25 once per user )"
+    }, {
+        weName: "₹5 Cashback",
+        weCode: "ZDAY5",
+        wePercWght: 25,
+        type: "coupon",
+        expiry: "15th June",
+        img: "https://static-assets-services.s3.ap-south-1.amazonaws.com/ChatGPT+Image+May+27%2C+2026%2C+09_58_28+AM+1.png",
+        redirect: "https://www.zingoy.com/gift-cards/zingoy",
+        rewardText: "You won ₹5 cashback on ₹10 Zingoy Voucher",
+        userText: "( Once per user )"
+    }],
+    spinning = 0,
+    sCount = 0,
+    curRot = 0,
+    sTo = null,
+    pi = document.getElementById("pi"),
+    wheel = document.getElementById("wheel"),
+    ro = document.getElementById("ro"),
+    rc = document.getElementById("rc"),
+    cv = document.getElementById("cc"),
+    cx = cv.getContext("2d"),
+    cp = [],
+    craf = null,
+    cols = ["#ffe600", "#ff3b82", "#0a3a91", "#fff", "#ff9800", "#4caf50", "#e91e63", "#00bcd4"];
+
+function hP() {
+    pi && (pi.style.opacity = 0, pi.style.visibility = "hidden")
+}
+
+function sP() {
+    pi && (pi.style.opacity = 1, pi.style.visibility = "visible")
+}
+
+function rndIdx() {
+    var e = [];
+    return D.forEach((t, n) => {
+        for (var o = 0; o < (t.wePercWght || 0); o++) e.push(n)
+    }), e[Math.floor(Math.random() * e.length)]
+}
+
+function rotFor(e) {
+    var t = 360 / D.length;
+    return (90 - (e * t + t / 2) + 160 + 360) % 360
+}
+
+function showToast(e) {
+    var t = document.querySelector(".toast");
+    t && t.remove();
+    var n = document.createElement("div");
+    n.className = "toast", n.innerText = e, document.body.appendChild(n), setTimeout(() => {
+        n.style.opacity = 0, setTimeout(() => n.remove(), 300)
+    }, 2e3)
+}
+
+function launchConfetti() {
+    cv.width = innerWidth, cv.height = innerHeight, cv.style.display = "block", cp = [];
+    for (var e = 0; e < 120; e++) cp.push({
+        x: Math.random() * cv.width,
+        y: -10 - 100 * Math.random(),
+        w: 6 + 6 * Math.random(),
+        h: 3 + 4 * Math.random(),
+        color: cols[Math.floor(Math.random() * cols.length)],
+        rot: 360 * Math.random(),
+        vx: 3 * (Math.random() - .5),
+        vy: 2 + 3 * Math.random(),
+        vr: 8 * (Math.random() - .5),
+        o: 1
+    });
+    craf && cancelAnimationFrame(craf), craf = requestAnimationFrame(function e() {
+        cx.clearRect(0, 0, cv.width, cv.height);
+        var t = 0;
+        cp.forEach(e => {
+            e.x += e.vx, e.y += e.vy, e.rot += e.vr, e.y > .7 * cv.height && (e.o -= .03), e.o > 0 && e.y < cv.height + 20 && (t = 1, cx.save(), cx.globalAlpha = Math.max(0, e.o), cx.translate(e.x, e.y), cx.rotate(e.rot * Math.PI / 180), cx.fillStyle = e.color, cx.fillRect(-e.w / 2, -e.h / 2, e.w, e.h), cx.restore())
+        }), t ? craf = requestAnimationFrame(e) : cv.style.display = "none"
+    })
+}
+
+function stopConfetti() {
+    craf && cancelAnimationFrame(craf), cv.style.display = "none", cp = []
+}
+
+function trackWebEngageEvent(e) {
+    try {
+        var t = {
+            campaign_id: "311m1r9",
+            result_value: e.weName,
+            coupon_code: e.weCode || null,
+            reward_type: e.type,
+            spin_number: sCount
+        };
+        console.log("WebEngage Event Data:", t), console.log("WebEngage Event Data (Stringified):", JSON.stringify(t)), "undefined" != typeof weNotification && weNotification.trackEvent ? weNotification.trackEvent("wheel_spin_result", JSON.stringify(t), !1) : console.log("WebEngage not available, event logged only in console")
+    } catch (e) {
+        console.error("WebEngage tracking error:", e)
+    }
+}
+
+function copyCoupon() {
+    var e = document.getElementById("cc2");
+    if (e) {
+        var t = e.innerText.trim();
+        navigator.clipboard.writeText(t).catch(function(e) {
+            var n = document.createElement("textarea");
+            n.value = t, document.body.appendChild(n), n.select(), document.execCommand("copy"), document.body.removeChild(n)
+        }), showToast("✓ " + t + " copied!")
+    }
+}
+
+function closeInApp() {
+    "undefined" != typeof weNotification && weNotification.close && weNotification.close(), ro.style.display = "none", sP(), stopConfetti()
+}
+
+function showReward(e) {
+    if (trackWebEngageEvent(e), launchConfetti(), hP(), "image" !== e.type) {
+        var t = "10% Cashback" === e.weName ? "Buy gift cards and save instantly" : "Won ₹5 cashback coupon";
+        rc.innerHTML = `<div class="rewardWrap"><h1 class="rewardHeading">Congratulations!</h1><p class="rewardSubHeading">${t}</p><div class="rewardCard"><img class="rewardImage" src="${e.img}"><div class="rewardText">${e.rewardText}</div><div class="userText">${e.userText||""}</div><div class="couponBox"><span class="couponCode" id="cc2">${e.weCode}</span><span onclick="copyCoupon()"><img src="https://afiles.webengage.com/~15ba1dbb5/5d48edc6-cd21-4d07-8e59-806bb1f57e29.png" style="width:24px"></span></div><div class="expiryText">Expiry - ${e.expiry}</div></div><button class="copyBtn" onclick="copyCoupon()">Copy Coupon Code</button><button class="buyBtn" onclick="window.open('${e.redirect}','_blank'); closeInApp();">Buy Now</button></div>`, ro.style.display = "flex"
+    } else {
+        rc.innerHTML = `<img src="${e.img}" class="fullReward" id="imageRewardCloseBtn" style="cursor:pointer;">`, ro.style.display = "flex";
+        var n = document.getElementById("imageRewardCloseBtn");
+        n && (n.onclick = function(e) {
+            e.stopPropagation(), closeInApp()
+        })
+    }
+}
+
+function spin() {
+    if (spinning) showToast("Wait, still spinning!");
+    else {
+        spinning = 1, sCount++;
+        var e = document.querySelector(".spin-btn");
+        e.style.opacity = .7, e.disabled = !0;
+        var t = rndIdx(),
+            n = D[t],
+            o = rotFor(t) + 360 * (8 + Math.floor(8 * Math.random()));
+        wheel.style.transition = "transform 6s cubic-bezier(0.25,0.1,0.2,1)", wheel.style.transform = "rotate(" + o + "deg)", curRot = o;
+        try {
+            var a = JSON.parse(localStorage.getItem("z_hist") || "[]");
+            a.push({
+                n: sCount,
+                p: n.weName,
+                c: n.weCode || "",
+                t: (new Date).toISOString()
+            }), a.length > 20 && a.shift(), localStorage.setItem("z_hist", JSON.stringify(a))
+        } catch (e) {}
+        sTo && clearTimeout(sTo), sTo = setTimeout(() => {
+            showReward(n), e.style.opacity = 1, e.disabled = !1, spinning = 0, setTimeout(() => {
+                wheel.style.transition = ""
+            }, 100)
+        }, 6e3)
+    }
+}
+ro.onclick = function(e) {
+    e.target === ro && closeInApp()
+}, document.addEventListener("click", function(e) {
+    if (e.target && "imageRewardCloseBtn" === e.target.id) return e.preventDefault(), closeInApp(), !1;
+    if (e.target && e.target.classList && e.target.classList.contains("fullReward")) {
+        var t = document.getElementById("rc");
+        t && t.querySelector("img.fullReward") && !t.querySelector(".couponBox") && (e.preventDefault(), e.stopPropagation(), closeInApp())
+    }
+}), addEventListener("load", () => {
+    wheel.style.transform = "rotate(0deg)", curRot = 0, sP()
+}), window.copyCoupon = copyCoupon, window.spin = spin, window.closeInApp = closeInApp, "undefined" == typeof weNotification && (window.weNotification = {
+    trackEvent: function() {},
+    close: function() {
+        ro.style.display = "none", sP(), stopConfetti()
+    }
+})

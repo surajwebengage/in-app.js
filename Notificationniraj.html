@@ -385,7 +385,7 @@ function trackWebEngageEvent(e) {
             reward_type: e.type,
             spin_number: sCount
         };
-        console.log("WebEngage Event Data:", t), console.log("WebEngage Event Data (Stringified):", JSON.stringify(t)), "undefined" != typeof webengage && webengage.track ? webengage.track("wheel_spin_result", JSON.stringify(t), !1) : console.log("WebEngage not available, event logged only in console")
+        "undefined" != typeof webengage && webengage.track && webengage.track("wheel_spin_result", t);
     } catch (e) {
         console.error("WebEngage tracking error:", e)
     }

@@ -2,14 +2,12 @@
         weName: "100 ZingCoins",
         wePercWght: 25,
         type: "image",
-        img: "https://afiles.webengage.com/~15ba1dbb5/724d1383-891b-4868-b85a-4420568909a5.png",
-        redirect: "https://www.zingoy.com/refer-and-earn?ref=home_earn_section"
+        img: "https://afiles.webengage.com/~15ba1dbb5/724d1383-891b-4868-b85a-4420568909a5.png"
     }, {
         weName: "10 ZingCoins",
         wePercWght: 25,
         type: "image",
-        img: "https://afiles.webengage.com/~15ba1dbb5/c9b7a897-d518-4540-aa75-a133c1e8c405.png",
-        redirect: "https://www.zingoy.com/refer-and-earn?ref=home_earn_section"
+        img: "https://afiles.webengage.com/~15ba1dbb5/c9b7a897-d518-4540-aa75-a133c1e8c405.png"
     }, {
         weName: "JBL Lucky Draw",
         wePercWght: 25,

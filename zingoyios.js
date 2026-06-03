@@ -1,23 +1,23 @@
 var D = [{
         weName: "100 ZingCoins",
-        wePercWght: 25,
+        wePercWght: 50,
         type: "image",
         img: "https://afiles.webengage.com/~15ba1dbb5/724d1383-891b-4868-b85a-4420568909a5.png"
     }, {
         weName: "10 ZingCoins",
-        wePercWght: 25,
+        wePercWght: 50,
         type: "image",
         img: "https://afiles.webengage.com/~15ba1dbb5/c9b7a897-d518-4540-aa75-a133c1e8c405.png"
     }, {
         weName: "JBL Lucky Draw",
-        wePercWght: 25,
+        wePercWght: 0,
         type: "image",
         img: "https://afiles.webengage.com/~15ba1dbb5/1d65299c-e5bb-4803-9f46-23db2efe2d8f.png",
         redirect: "https://www.zingoy.com/refer-and-earn?ref=home_earn_section"
     }, {
         weName: "10% Cashback",
         weCode: "BDAY10",
-        wePercWght: 25,
+        wePercWght: 0,
         type: "coupon",
         expiry: "10th June",
         img: "https://static-assets-services.s3.ap-south-1.amazonaws.com/money-stack-with-shield-icon-3d-illustration-background+(1)+1.png",
@@ -27,7 +27,7 @@ var D = [{
     }, {
         weName: "₹5 Cashback",
         weCode: "ZDAY5",
-        wePercWght: 25,
+        wePercWght: 0,
         type: "coupon",
         expiry: "15th June",
         img: "https://static-assets-services.s3.ap-south-1.amazonaws.com/ChatGPT+Image+May+27%2C+2026%2C+09_58_28+AM+1.png",

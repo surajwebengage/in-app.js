@@ -142,11 +142,22 @@ function showReward(e) {
         var t = "10% Cashback" === e.weName ? "Buy gift cards and save instantly" : "Won ₹5 cashback coupon";
         rc.innerHTML = `<div class="rewardWrap"><h1 class="rewardHeading">Congratulations!</h1><p class="rewardSubHeading">${t}</p><div class="rewardCard"><img class="rewardImage" src="${e.img}"><div class="rewardText">${e.rewardText}</div><div class="userText">${e.userText||""}</div><div class="couponBox"><span class="couponCode" id="cc2">${e.weCode}</span><span onclick="copyCoupon()"><img src="https://afiles.webengage.com/~15ba1dbb5/5d48edc6-cd21-4d07-8e59-806bb1f57e29.png" style="width:24px"></span></div><div class="expiryText">Expiry - ${e.expiry}</div></div><button class="copyBtn" onclick="copyCoupon()">Copy Coupon Code</button><button class="buyBtn" onclick="window.open('${e.redirect}','_blank'); closeInApp();">Buy Now</button></div>`, ro.style.display = "flex"
     } else {
-        rc.innerHTML = `<img src="${e.img}" class="fullReward" id="imageRewardCloseBtn" style="cursor:pointer;">`, ro.style.display = "flex";
-        var n = document.getElementById("imageRewardCloseBtn");
-        n && (n.onclick = function(e) {
-            e.stopPropagation(), closeInApp()
-        })
+     rc.innerHTML = `<img src="${e.img}" class="fullReward" id="imageRewardCloseBtn" style="cursor:pointer;">`;
+ro.style.display = "flex";
+
+var n = document.getElementById("imageRewardCloseBtn");
+
+if (n) {
+    n.onclick = function(event) {
+        event.stopPropagation();
+
+        if (e.img === "https://afiles.webengage.com/~15ba1dbb5/724d1383-891b-4868-b85a-4420568909a5.png" || e.img === "https://static-assets-services.s3.ap-south-1.amazonaws.com/money-stack-with-shield-icon-3d-illustration-background+(1)+1.png") {
+            weNotification.close();
+        } else {
+            closeInApp();
+        }
+    };
+}
     }
 }
 

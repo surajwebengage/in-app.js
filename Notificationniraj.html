@@ -385,6 +385,7 @@ function trackWebEngageEvent(e) {
             reward_type: e.type,
             spin_number: sCount
         };
+        console.log("WebEngage Event Data:", t), console.log("WebEngage Event Data (Stringified):", JSON.stringify(t)), "undefined" != typeof webenagage && webenagage.track ? webenagage.track("wheel_spin_result", JSON.stringify(t), !1) : console.log("WebEngage not available, event logged only in console")
     } catch (e) {
         console.error("WebEngage tracking error:", e)
     }
@@ -402,15 +403,13 @@ function copyCoupon() {
 }
 
 function closeInApp() {
-    "undefined" != typeof weNotification && weNotification.close && weNotification.close();
-    ro.style.display = "none", sP(), stopConfetti();
-    try { window.parent.parent.postMessage({ type: 'closeInApp' }, '*'); } catch(e) {}
+    "undefined" != typeof webenagage && webenagage.close && webenagage.close(), ro.style.display = "none", sP(), stopConfetti()
 }
 
 function showReward(e) {
     if (trackWebEngageEvent(e), launchConfetti(), hP(), "image" !== e.type) {
         var t = "10% Cashback" === e.weName ? "Buy gift cards and save instantly" : "Won ₹5 cashback coupon";
-        rc.innerHTML = `<div class="rewardWrap"><h1 class="rewardHeading">Congratulations!</h1><p class="rewardSubHeading">${t}</p><div class="rewardCard"><img class="rewardImage" src="${e.img}"><div class="rewardText">${e.rewardText}</div><div class="userText">${e.userText||""}</div><div class="couponBox"><span class="couponCode" id="cc2">${e.weCode}</span><span onclick="copyCoupon()"><img src="https://afiles.webengage.com/~15ba1dbb5/5d48edc6-cd21-4d07-8e59-806bb1f57e29.png" style="width:24px"></span></div><div class="expiryText">Expiry - ${e.expiry}</div></div><button class="copyBtn" onclick="copyCoupon()">Copy Coupon Code</button><button class="buyBtn" onclick="window.open('${e.redirect}','_blank');">Buy Now</button></div>`, ro.style.display = "flex"
+        rc.innerHTML = `<div class="rewardWrap"><h1 class="rewardHeading">Congratulations!</h1><p class="rewardSubHeading">${t}</p><div class="rewardCard"><img class="rewardImage" src="${e.img}"><div class="rewardText">${e.rewardText}</div><div class="userText">${e.userText||""}</div><div class="couponBox"><span class="couponCode" id="cc2">${e.weCode}</span><span onclick="copyCoupon()"><img src="https://afiles.webengage.com/~15ba1dbb5/5d48edc6-cd21-4d07-8e59-806bb1f57e29.png" style="width:24px"></span></div><div class="expiryText">Expiry - ${e.expiry}</div></div><button class="copyBtn" onclick="copyCoupon()">Copy Coupon Code</button><button class="buyBtn" onclick="window.open('${e.redirect}','_blank'); closeInApp();">Buy Now</button></div>`, ro.style.display = "flex"
     } else {
      rc.innerHTML = `<img src="${e.img}" class="fullReward" id="imageRewardCloseBtn" style="cursor:pointer;">`;
 ro.style.display = "flex";
@@ -422,9 +421,8 @@ if (n) {
         event.stopPropagation();
 
         if (e.img === "https://afiles.webengage.com/~15ba1dbb5/724d1383-891b-4868-b85a-4420568909a5.png" || e.img === "https://static-assets-services.s3.ap-south-1.amazonaws.com/money-stack-with-shield-icon-3d-illustration-background+(1)+1.png") {
-            document.querySelector('.close').click();
-        } 
-        else {
+            webenagage.close();
+        } else {
             closeInApp();
         }
     };
@@ -459,7 +457,7 @@ function spin() {
     }
 }
 ro.onclick = function(e) {
-    e.target === ro 
+    e.target === ro && closeInApp()
 }, document.addEventListener("click", function(e) {
     if (e.target && "imageRewardCloseBtn" === e.target.id) return e.preventDefault(), closeInApp(), !1;
     if (e.target && e.target.classList && e.target.classList.contains("fullReward")) {
@@ -468,11 +466,11 @@ ro.onclick = function(e) {
     }
 }), addEventListener("load", () => {
     wheel.style.transform = "rotate(0deg)", curRot = 0, sP()
-}), window.copyCoupon = copyCoupon, window.spin = spin, window.closeInApp = closeInApp, "undefined" == typeof webengage && (webengage.notification = {
-    trackEvent: function() {},
+}), window.copyCoupon = copyCoupon, window.spin = spin, window.closeInApp = closeInApp, "undefined" == typeof webenagage && (window.webenagage = {
+    track: function() {},
     close: function() {
         ro.style.display = "none", sP(), stopConfetti()
     }
 })
-    
+
 </script>

@@ -1,4 +1,4 @@
-var D = [{
+ var D = [{
       weName: "100 ZingCoins",
       wePercWght: 20,
       type: "image",
@@ -132,32 +132,29 @@ function copyCoupon() {
 }
 
 function closeInApp() {
+    ["a[id^='redirectLink']", "a[id^='buyLink']"].forEach(function(sel) {
+        var el = rc.querySelector(sel);
+        if (el) { el.style.display = "none"; document.body.appendChild(el); }
+    });
     "undefined" != typeof weNotification && weNotification.close && weNotification.close(), ro.style.display = "none", sP(), stopConfetti()
 }
 
 function showReward(e) {
-    if (trackWebEngageEvent(e), launchConfetti(), hP(), "image" !== e.type) {
+    trackWebEngageEvent(e); launchConfetti(); hP();
+    var idx = D.indexOf(e);
+    if ("image" !== e.type) {
         var t = "10% Cashback" === e.weName ? "Buy gift cards and save instantly" : "Won ₹5 cashback coupon";
-        rc.innerHTML = `<div class="rewardWrap"><h1 class="rewardHeading">Congratulations!</h1><p class="rewardSubHeading">${t}</p><div class="rewardCard"><img class="rewardImage" src="${e.img}"><div class="rewardText">${e.rewardText}</div><div class="userText">${e.userText||""}</div><div class="couponBox"><span class="couponCode" id="cc2">${e.weCode}</span><span onclick="copyCoupon()"><img src="https://afiles.webengage.com/~15ba1dbb5/5d48edc6-cd21-4d07-8e59-806bb1f57e29.png" style="width:24px"></span></div><div class="expiryText">Expiry - ${e.expiry}</div></div><button class="copyBtn" onclick="copyCoupon()">Copy Coupon Code</button><button class="buyBtn" onclick="window.open('${e.redirect}','_blank'); closeInApp();">Buy Now</button></div>`, ro.style.display = "flex"
+        var buyLink = document.getElementById("buyLink" + idx);
+        rc.innerHTML = `<div class="rewardWrap"><h1 class="rewardHeading">Congratulations!</h1><p class="rewardSubHeading">${t}</p><div class="rewardCard"><img class="rewardImage" src="${e.img}"><div class="rewardText">${e.rewardText}</div><div class="userText">${e.userText||""}</div><div class="couponBox"><span class="couponCode" id="cc2">${e.weCode}</span><span onclick="copyCoupon()"><img src="https://afiles.webengage.com/~15ba1dbb5/5d48edc6-cd21-4d07-8e59-806bb1f57e29.png" style="width:24px"></span></div><div class="expiryText">Expiry - ${e.expiry}</div></div><button class="copyBtn" onclick="copyCoupon()">Copy Coupon Code</button></div>`;
+        buyLink.style.display = "block";
+        rc.querySelector(".rewardWrap").appendChild(buyLink);
     } else {
-     rc.innerHTML = `<img src="${e.img}" class="fullReward" id="imageRewardCloseBtn" style="cursor:pointer;">`;
-ro.style.display = "flex";
-
-var n = document.getElementById("imageRewardCloseBtn");
-if (n) {
-    n.onclick = function(event) {
-        event.stopPropagation();
-        if (e.redirect) {
-            var idx = D.indexOf(e);
-            var link = document.getElementById("redirectLink" + idx);
-            link.style.display = "block";
-            link.click();
-            link.style.display = "none";
-        }
-        closeInApp();
-    };
-}
+        var link = document.getElementById("redirectLink" + idx);
+        rc.innerHTML = "";
+        link.style.display = "block";
+        rc.appendChild(link);
     }
+    ro.style.display = "flex";
 }
 
 function spin() {
@@ -170,15 +167,6 @@ function spin() {
             n = D[t],
             o = rotFor(t) + 360 * (8 + Math.floor(8 * Math.random()));
         wheel.style.transition = "transform 6s cubic-bezier(0.25,0.1,0.2,1)", wheel.style.transform = "rotate(" + o + "deg)", curRot = o;
-        try {
-            var a = JSON.parse(localStorage.getItem("z_hist") || "[]");
-            a.push({
-                n: sCount,
-                p: n.weName,
-                c: n.weCode || "",
-                t: (new Date).toISOString()
-            }), a.length > 20 && a.shift(), localStorage.setItem("z_hist", JSON.stringify(a))
-        } catch (e) {}
         sTo && clearTimeout(sTo), sTo = setTimeout(() => {
             showReward(n), e.style.opacity = 1, e.disabled = !1, spinning = 0, setTimeout(() => {
                 wheel.style.transition = ""
@@ -192,7 +180,8 @@ ro.onclick = function(e) {
     if (e.target && "imageRewardCloseBtn" === e.target.id) return e.preventDefault(), closeInApp(), !1;
 }), addEventListener("load", () => {
     wheel.style.transform = "rotate(0deg)", curRot = 0, sP()
-}), window.copyCoupon = copyCoupon, window.spin = spin, window.closeInApp = closeInApp, "undefined" == typeof weNotification && (window.weNotification = {
+}), window.copyCoupon = copyCoupon, window.spin = spin, window.closeInApp = closeInApp, "undefined" == typeof 
+weNotification && (window.weNotification = {
     trackEvent: function() {},
     close: function() {
         ro.style.display = "none", sP(), stopConfetti()

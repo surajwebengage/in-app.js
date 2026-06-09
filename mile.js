@@ -1,5 +1,5 @@
 
-  let scanCount = user["custom"]["winback_scan_count"] || 0;
+  let scanCount = 5;
 
   function renderMilestone(scans) {
     // ── Status heading ──

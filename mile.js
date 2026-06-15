@@ -1,5 +1,7 @@
 
-  let scanCount = 5;
+ // let scanCount = 5;
+
+  let scanCount = parseInt(document.querySelector('#winback_scan_count p').textContent.trim(), 10) || 0;
 
   function renderMilestone(scans) {
     // ── Status heading ──

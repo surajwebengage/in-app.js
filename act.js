@@ -1,6 +1,7 @@
- const answers = { q1: null, q2: null, q3: null, q4: null, q5: null };
+
+         const answers = { q1: null, q2: null, q3: null, q4: null };
     let currentPage = 1;
-    const totalPages = 3;
+    const totalPages = 4;
 
     function showPage(n) {
       document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -53,12 +54,18 @@
     document.getElementById('next1').addEventListener('click', e => {
       e.preventDefault();
       if (!answers.q1) { showErr('err1'); return; }
-      if (answers.q1 === 'Tenda') {
-        showPage(2);
-      } else {
-        answers.q2 = 'N/A';
-        showPage(3);
-      }
+      showPage(2);
+    });
+
+    document.getElementById('next3').addEventListener('click', e => {
+      e.preventDefault();
+      if (!answers.q3) { showErr('err3'); return; }
+      showPage(4);
+    });
+
+    document.getElementById('prev3').addEventListener('click', e => {
+      e.preventDefault();
+      showPage(2);
     });
 
  
@@ -87,25 +94,11 @@
     initOptions('q3Options', 'q3', 'q3Other');
     initOptions('q4Options', 'q4', 'q4Other');
 
-    document.querySelectorAll('#q5Scale .scale-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('#q5Scale .scale-btn').forEach(b => b.classList.remove('selected'));
-        btn.classList.add('selected');
-        answers.q5 = btn.dataset.val;
-      });
-    });
-
-    document.getElementById('prev3').addEventListener('click', e => {
-      e.preventDefault();
-      if (answers.q1 === 'Tenda') showPage(2);
-      else showPage(1);
-    });
+    document.getElementById('prev4').addEventListener('click', e => { e.preventDefault(); showPage(3); });
 
     document.getElementById('submitBtn').addEventListener('click', e => {
       e.preventDefault();
-      if (!answers.q3) { showErr('err3'); return; }
       if (!answers.q4) { showErr('err4'); return; }
-      if (!answers.q5) { showErr('err5'); return; }
 
       const getVal = (key, otherId) => {
         if (answers[key] && answers[key].startsWith('other-')) {
@@ -118,8 +111,7 @@
         "question 1": getVal('q1', 'q1Other'),
         "question 2": answers.q2,
         "question 3": getVal('q3', 'q3Other'),
-        "question 4": getVal('q4', 'q4Other'),
-        "question 5": answers.q5
+        "question 4": getVal('q4', 'q4Other')
       };
 
       try {

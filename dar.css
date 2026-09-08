@@ -122,23 +122,7 @@ button.spin-button, button.respin-button {
       row-gap: 2em;
 }
 
-code>p {
-      font-family: Inter, sans-serif;
-    color: #ffffff;
-    font-size: 18px;
-    font-weight: 450;
-    width: min-content;
-    text-align: center;
-    line-height: 1.2;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
-    overflow: hidden;
-    text-wrap: balance;
-    margin: 40px auto 0px auto;
-    min-height: 45px;
-    height: 44px;
-}
+
 
 code+p {
       font-size: 16px;
@@ -271,21 +255,25 @@ span {
     text-transform: capitalize;
 }
 
+
+
 code {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-    padding: 20px;
+    padding: 0px;
     border-radius: 4px;
-    width: 100%;
-    /* height: 44px; */
-    background-image: url(https://ofiles.webengage.com/inapp-custom-layouts/images/2024-02-21T14%3A21%3A25.946ZExclude.svg);
-    background-size: cover;
+    width: 90%;
+    height: 200px;
+    background-image: url('https://afiles.webengage.com/11b564b63/d8dd055d-0e0a-45e7-986b-d9890caa0788.png');
+    background-size: contain;
     background-position: center;
+     background-repeat: no-repeat;
     position: relative;
-    border: 1px dashed #001D34;
     box-shadow: 0 0 0 2px #fff inset;
     box-sizing: border-box;
+        border: none;
+
 }
 
 code>p {
@@ -293,6 +281,21 @@ code>p {
     color: #ffffff;
     font-size: 24px;
     font-weight: 450;
+      font-family: Inter, sans-serif;
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: 450;
+    width: min-content;
+    text-align: center;
+    line-height: 1.2;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    text-wrap: balance;
+    margin: 40px auto 0px auto;
+    min-height: 45px;
+    height: 44px;
 }
 
 code img {

@@ -250,39 +250,3 @@ arcs.append("path").attr("fill", function(t, e) {
         "stroke-linejoin": "round",
         transform: "translate(-13px, -13px) scale(.75)"
     });
-     </script>
-<script>
-const circle = document.querySelector(
-    '#weSpinWheel > svg > g.spinner > circle'
-);
-
-if (circle) {
-    const svg = circle.ownerSVGElement;
-
-    const image = document.createElementNS(
-        'http://www.w3.org/2000/svg',
-        'image'
-    );
-
-    image.setAttribute(
-        'href',
-        'https://afiles.webengage.com/11b564b63/bda89826-dabe-49d6-aa74-899850f4b6f2.png'
-    );
-
-    image.setAttribute('x', '-25');
-    image.setAttribute('y', '-25');
-    image.setAttribute('width', '50');
-    image.setAttribute('height', '50');
-
-    // Make the image circular
-    image.setAttribute('clip-path', 'circle(25px at 25px 25px)');
-
-    circle.replaceWith(image);
-}
-const path = document.querySelector(
-  '#weSpinWheel > svg > g.spinner > path'
-);
-
-if (path) {
-  path.remove();
-}

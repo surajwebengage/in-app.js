@@ -307,9 +307,6 @@ code>span {
     right: 10px;
 }
 
-code+p {
-    font-size: 12px;
-}
 
 .spinContainer>p {
     grid-row: 7 / 8;

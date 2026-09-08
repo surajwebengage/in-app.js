@@ -1,4 +1,5 @@
- var padding = {
+
+        var padding = {
         top: 20,
         right: 0,
         bottom: 0,
@@ -67,10 +68,16 @@ function spin(t) {
                                                 .length
                                         }), !1)
                                 } catch (t) {}
+                                if (picked === 0 || picked === 1) {
+                                    try {
+                                        weNotification.trackEvent("last_spin_win - Spin Clicked", {
+                                            "Last win": 0
+                                        })
+                                    } catch (t) {}
+                                }
                                 document.querySelector(
                                         ".weWinCont")
                                     .classList.add("show");
-                                document.querySelector("#wrapper > div > div > div > dialog").style.setProperty('justify-content', 'end');
                                 let e = document
                                     .querySelector(
                                         "dialog > div.weWinCont.show > div:nth-child(2) > button.respin-button"

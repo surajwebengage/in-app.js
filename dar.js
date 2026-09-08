@@ -1,4 +1,131 @@
-var padding = {
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>In-App Spin The Wheel - Webengage</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+     <link rel="stylesheet" href="https://surajwebengage.github.io/in-app.js/dar.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:slnt,wght@-10..0,100..900&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/d3@3" charset="utf-8"></script>
+    <style>
+       .main::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: transparent !important;
+}
+
+#weSpinWheel > svg > g.spinner > circle {
+    fill: white !important;
+    filter: unset !important;
+}
+
+.slice > path {
+    stroke: #1C4A3F !important;
+}
+    </style>
+
+</head>
+
+<body>
+    <dialog open class="main">
+        <div class="spinContainer">
+            <h2 style="color: #ffffff;">جـــــرب حـظـــــك</h2>
+            <div id="weSpinWheel">
+            </div>
+            <div class="wheel-stand-container">
+                <img
+                    src="https://ofiles.webengage.com/inapp-custom-layouts/966147/2024-02-21T14%3A20%3A45.697ZGroup%2081.svg">
+            </div>
+            <p class="badge-container">
+                <span class="badge-text">الفرض</span>
+  <span class="badge-number">2</span>
+  <span class="badge-text">المتبقية</span>
+            </p>
+            <button class="spin-button" onclick="spin();">
+                <!-- <img src="https://ofiles.webengage.com/inapp-custom-layouts/966147/2024-02-21T14%3A22%3A17.373ZVector%20%282%29.svg"
+               style="align-self: center;width: 17px;"> -->
+                <p style="align-self: center;color: #ffffff;font-size: 17px;font-weight: 500;">لفهـــــا الحيــن</p>
+            </button>
+        </div>
+        <!-- This win container will be visible only when the data items have winning condition yes i.e. win: 'yes'. -->
+        <div class="weWinCont">
+            <div style="display: inline-flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    width: 100%;">
+                <h2 style="text-align: center;color: #961A4D;">مبرووووك<span id="prize"
+                        style="font-weight: 600;font-family: sans-serif;color: #1C4A3F;"></span></h2>
+                <img src="https://ofiles.webengage.com/inapp-custom-layouts/966147/2024-02-21T14%3A19%3A56.308ZGift.svg"
+                    alt="win" srcset="" style="display: none;">
+                <code><p id = "cp_code"></p>
+            <!-- <img src="https://ofiles.webengage.com/inapp-custom-layouts/966147/2024-02-21T14%3A19%3A15.166Zcopy-06.svg" alt="copy-code" srcset="" onclick="copyCode();"> -->
+            <span>copied</span></code>
+                <p style="color: #3C9079;">KSA96</p>
+            </div>
+            <div style="display: inline-flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    row-gap: 1em;">
+                <a href="app://continue-shopping" class="continue-button">
+                    انســخ الكــود</a>
+                <button class="respin-button" style="display: none;">
+                    <img src="https://ofiles.webengage.com/inapp-custom-layouts/966147/2024-02-21T14%3A22%3A17.373ZVector%20%282%29.svg"
+                        style="align-self: center;width: 17px;">
+                    <p style="align-self: center;color: #ffffff;font-size: 17px;font-weight: 500;">انســخ الكــود</p>
+                </button>
+            </div>
+        </div>
+        <!-- This lost container will be visible only when the data items have winning condition yes i.e. win: 'no'. -->
+        <div class="welostCont">
+            <div style="display: inline-flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    row-gap: 1em;">
+                <h2 style="text-align: center;
+                     font-style: normal;
+                     font-weight: 600;
+                     font-size: 24px;
+                     line-height: 140%;
+                     color: #1E1E1E;">Better luck next time</h2>
+                <h4>We are constantly putting up more offers, check again</h4>
+                <img src="https://ofiles.webengage.com/inapp-custom-layouts/966147/2024-02-21T14%3A21%3A08.354Zimage%20217.svg"
+                    alt="loser">
+            </div>
+            <div style="display: inline-flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    row-gap: 1em;">
+                <button class="respin-button">
+                    <img src="https://ofiles.webengage.com/inapp-custom-layouts/966147/2024-02-21T14%3A22%3A17.373ZVector%20%282%29.svg"
+                        style="align-self: center;width: 17px;">
+                    <p style="align-self: center;color: #ffffff;font-size: 17px;font-weight: 500;">Respin</p>
+                </button><a href="app://continue-shopping"
+                    style="border-radius: 6px;color: #001D34;width: 215px;height: 45px;
+            display: inline-flex;flex-direction: column;justify-content: center;font-size: 17px;font-weight: 400;background: transparent;text-align: center;border: 1.5px solid #000000;line-height: 32px;box-shadow: 0px 3px 2px 0px #000000;">Continue
+                    shopping</a>
+            </div>
+        </div>
+    </dialog>
+    <script>
+         var weDATA = [
+            { "weName": "قسيمة شرائية 100 ريال", "weCode": "توصيـل مجـانـي", "weWin": "yes", "color": "#AFD8C6", "wePercWght": 25 },
+            { "weName": "قسيمة شرائية 50 ريال", "weCode": "توصيـل مجـانـي", "weWin": "yes", "color": "#D0C0AE", "wePercWght": 25 },
+            { "weName": "شحن مجاني", "weCode": "توصيـل مجـانـي", "weWin": "yes", "color": "#3C9079", "wePercWght": 25 },
+            { "weName": "خصم 5%", "weCode": "توصيـل مجـانـي", "weWin": "yes", "color": "#EDE3D9", "wePercWght": 25 },
+            { "weName": "خصم 10%", "weCode": "توصيـل مجـانـي", "weWin": "yes", "color": "#3C9079", "wePercWght": 25 },
+        ]; </script>
+    <!-- <script src="https://surajwebengage.github.io/in-app.js/dar.js"></script> -->
+     <script>
+        var padding = {
         top: 20,
         right: 0,
         bottom: 0,
@@ -70,6 +197,7 @@ function spin(t) {
                                 document.querySelector(
                                         ".weWinCont")
                                     .classList.add("show");
+                                document.querySelector("#wrapper > div > div > div > dialog").style.setProperty('justify-content', 'end');
                                 let e = document
                                     .querySelector(
                                         "dialog > div.weWinCont.show > div:nth-child(2) > button.respin-button"
@@ -249,3 +377,42 @@ arcs.append("path").attr("fill", function(t, e) {
         "stroke-linejoin": "round",
         transform: "translate(-13px, -13px) scale(.75)"
     });
+     </script>
+<script>
+const circle = document.querySelector(
+    '#weSpinWheel > svg > g.spinner > circle'
+);
+
+if (circle) {
+    const svg = circle.ownerSVGElement;
+
+    const image = document.createElementNS(
+        'http://www.w3.org/2000/svg',
+        'image'
+    );
+
+    image.setAttribute(
+        'href',
+        'https://afiles.webengage.com/11b564b63/bda89826-dabe-49d6-aa74-899850f4b6f2.png'
+    );
+
+    image.setAttribute('x', '-25');
+    image.setAttribute('y', '-25');
+    image.setAttribute('width', '50');
+    image.setAttribute('height', '50');
+
+    // Make the image circular
+    image.setAttribute('clip-path', 'circle(25px at 25px 25px)');
+
+    circle.replaceWith(image);
+}
+const path = document.querySelector(
+  '#weSpinWheel > svg > g.spinner > path'
+);
+
+if (path) {
+  path.remove();
+}
+</script>
+</body>
+</html>

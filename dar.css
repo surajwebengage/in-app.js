@@ -168,7 +168,6 @@ html * {
     overflow: hidden;
     border: none;
      background-color: transparent;
-            justify-content: end;
 }
 
 .main::before {

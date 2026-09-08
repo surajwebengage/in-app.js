@@ -118,10 +118,6 @@ button.spin-button, button.respin-button {
   transition: background-color 0.3s ease, transform 0.1s ease;
 }
 
-.weWinCont, .welostCont {
-      row-gap: 2em;
-}
-
 
 
 code+p {
@@ -193,7 +189,7 @@ html * {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    row-gap: 4em;
+    row-gap: 2em;
     z-index: 999;
 }
 

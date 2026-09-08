@@ -213,24 +213,7 @@ p {
     color: #1E1E1E;
 }
 
-button.spin-button,
-button.respin-button {
-    width: 215px;
-    border: 1px solid black;
-    display: inline-flex;
-    justify-content: center;
-    border-radius: 6px;
-    color: #001D34;
-    background: #5446BF;
-    height: 48px;
-    font-size: 17px;
-    line-height: 32px;
-    box-shadow: 0 4px 2px -1px #000000;
-    gap: 5px;
-    cursor: pointer;
-    justify-items: center;
-    grid-row: 8 / 8;
-}
+
 
 h2 {
     font-weight: 600;

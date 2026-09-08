@@ -1,4 +1,4 @@
-  .n-preview-close {
+.n-preview-close {
             z-index: 999999999;
         }
 
@@ -13,27 +13,6 @@
             height: 100%;
             background-color: transparent;
         }
-
-        .show {
-            width: 100%;
-    background-color: #ffff;
-    border-top-left-radius: 50px;
-    border-top-right-radius: 50px;
-    padding-bottom: 40px;
-        }
-
-        .main {
-            background-color: transparent;
-        }
-
-        .spinContainer>p {
-            font-size: 21px;
-        }
-
-        .main {
-            justify-content: end;
-        }
-
         code {
             display: flex;
     justify-content: space-evenly;
@@ -102,39 +81,22 @@
   direction: rtl; 
 }
 
-h2 {
-      grid-row: 2 / 3;
-    font-family: "Inter", sans-serif;
-    font-style: normal;
-    font-size: 24px;
-    line-height: 140%;
-        display: block;
-    text-align: center;
-    margin: 0;
-    padding: 10px 0;
-    font-weight: 900;
-    direction: rtl;
-    letter-spacing: 2px;
-    color: #ffffff;
-    text-shadow: 0px 4px 15px rgba(0, 0, 0, 0.5);
-        color: #961A4D;
-}
 
 
 button.spin-button, button.respin-button {
       display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 10px 28px;
-    border-radius: 50px;
-    background-color: #3B9079;
-    color: #ffffff;
+  align-items: center;
+  justify-content: center;
+ padding: 10px 28px;
+  border-radius: 50px; 
+    background-color: #4a8f7d;
+  color: #ffffff;
     font-family: 'Tajawal', sans-serif;
-    font-size: 18px;
-    font-weight: 700;
-    direction: rtl;
-    border: none;
-    cursor: pointer;
+  font-size: 18px;
+  font-weight: 700;
+  direction: rtl; 
+  border: none;
+  cursor: pointer;
     transition: background-color 0.3s ease, transform 0.1s ease;
 }
 
@@ -211,6 +173,8 @@ html * {
     position: relative;
     overflow: hidden;
     border: none;
+     background-color: transparent;
+            justify-content: end;
 }
 
 .main::before {
@@ -275,14 +239,21 @@ button.respin-button {
 }
 
 h2 {
-    grid-row: 2 / 3;
-    font-family: "Inter", sans-serif;
-    text-align: center;
-    font-style: normal;
     font-weight: 600;
+       grid-row: 2 / 3;
+    font-family: "Inter", sans-serif;
+    font-style: normal;
     font-size: 24px;
     line-height: 140%;
-    color: #1E1E1E;
+        display: block;
+    text-align: center;
+    margin: 0;
+    padding: 10px 0;
+    direction: rtl;
+    letter-spacing: 2px;
+    color: #ffffff;
+    text-shadow: 0px 4px 15px rgba(0, 0, 0, 0.5);
+    color: #961A4D;
 }
 
 h4 {
@@ -349,6 +320,7 @@ code+p {
     grid-row: 7 / 8;
     color: #98A2B3;
     font-size: 14px;
+     font-size: 21px;
 }
 
 .spinContainer h2+h4+div+p {
@@ -416,6 +388,11 @@ div.wheel-stand-container {
     animation: fadeIn 0.5s linear forwards;
     opacity: 0;
     display: flex;
+        width: 100%;
+    background-color: #ffff;
+    border-top-left-radius: 50px;
+    border-top-right-radius: 50px;
+    padding-bottom: 40px;
 }
 
 .spin-button:focus-visible,
@@ -496,4 +473,3 @@ div.wheel-stand-container {
         grid-row: 3 / 4;
     }
 }
-

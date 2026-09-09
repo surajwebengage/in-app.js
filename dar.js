@@ -46,6 +46,7 @@ function spin(t) {
                         document.querySelector("code > p")
                         .innerText = weDATA[picked].weCode,
                         setTimeout(function() {
+                                document.querySelector("#wrapper > div > div > div > dialog").style.setProperty('justify-content', 'end');
                             if (document.querySelector(
                                     ".spinContainer")
                                 .classList.add("hide"), vis

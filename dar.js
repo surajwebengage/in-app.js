@@ -44,6 +44,8 @@ function spin(t) {
                     document.querySelector("span#prize")
                         .innerText = weDATA[picked].weName,
                         document.querySelector("code > p")
+                        .innerText = weDATA[picked].weName,
+                        document.querySelector("#coupon_code")
                         .innerText = weDATA[picked].weCode,
                         setTimeout(function() {
                                 document.querySelector("#wrapper > div > div > div > dialog").style.setProperty('justify-content', 'end');
@@ -196,7 +198,7 @@ function weightedRandom(t) {
     }
 }
 async function copyCode() {
-    var t = document.querySelector("code > p");
+    var t = document.querySelector("#coupon_code");
     try {
         await navigator.clipboard.writeText(t.innerText), document
             .querySelector("code span").style.display =

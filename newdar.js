@@ -1,5 +1,4 @@
-
- (function () {
+(function () {
         var weSpinWheel = document.getElementById("weSpinWheel");
         var face = weSpinWheel.querySelector(".face");
         var n = weDATA.length;
@@ -98,7 +97,6 @@
                 false
               );
             } catch (e) {}
-            document.getElementById("winRespin").style.display = exhausted ? "none" : "";
             document.getElementById("rS").classList.add("on");
           } else {
             try {
@@ -121,9 +119,6 @@
 
         // Wired once (not inside reveal()) so repeated respins don't stack up
         // duplicate click listeners on the same button.
-        document.getElementById("winRespin").addEventListener("click", function () {
-          backToWheel();
-        });
         document.getElementById("loseRespin").addEventListener("click", function () {
           try {
             weNotification.trackEvent(
@@ -134,27 +129,4 @@
           } catch (e) {}
           backToWheel();
         });
-
-        window.copyCode = async function () {
-          var codeEl = document.querySelector("#cp_code");
-          var text = codeEl.textContent;
-          try {
-            if (navigator.clipboard) {
-              await navigator.clipboard.writeText(text);
-            } else {
-              var ta = document.createElement("textarea");
-              ta.value = text;
-              document.body.appendChild(ta);
-              ta.select();
-              document.execCommand("copy");
-              ta.remove();
-            }
-            var ok = document.querySelector("#ok");
-            ok.classList.add("on");
-            setTimeout(function () { ok.classList.remove("on"); }, 1000);
-            try {
-              weNotification.trackEvent("In-app Template - Copy Clicked", JSON.stringify({ "Coupon Code": text }), false);
-            } catch (e) {}
-          } catch (e) {}
-        };
       })();

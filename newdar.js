@@ -1,3 +1,4 @@
+
  (function () {
         var weSpinWheel = document.getElementById("weSpinWheel");
         var face = weSpinWheel.querySelector(".face");

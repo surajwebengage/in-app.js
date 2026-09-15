@@ -1,4 +1,4 @@
- * {
+      * {
         box-sizing: border-box;
     }
 
@@ -183,9 +183,26 @@
     }
 
     .hint {
-        margin-top: 22px;
+        margin: 22px 0 0;
         color: #cfd8d4;
         font-size: 13px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .badge-number {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 20px;
+        height: 20px;
+        padding: 0 6px;
+        border-radius: 10px;
+        background: #3c9079;
+        color: #fff;
+        font-weight: 700;
+        font-size: 12px;
     }
 
     /* ---------- buttons (shared) ---------- */
@@ -411,3 +428,4 @@
     .sadface {
         margin-top: 18px;
     }
+   

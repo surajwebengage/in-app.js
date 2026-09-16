@@ -103,8 +103,7 @@
     "last_spin_win - Spin Clicked",
     JSON.stringify({
       "Last win": 0,
-      "Spin count": 1
-    }),
+      "Spin count": {{ event['custom']['last_spin_win - Spin Clicked']['custom']['Spin count'] or 0 }} + 1
     false
   );
 }  catch (e) {}

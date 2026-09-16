@@ -99,12 +99,15 @@
             } catch (e) {}
             if (d.isLastSpinPrize) {
               try {
-                weNotification.trackEvent(
-                  "last_spin_win - Spin Clicked",
-                  JSON.stringify({ "Last win": 0 }),
-                  false
-                );
-              } catch (e) {}
+  weNotification.trackEvent(
+    "last_spin_win - Spin Clicked",
+    JSON.stringify({
+      "Last win": 0,
+      "Spin count": {{event['custom']['last_spin_win - Spin Clicked']['custom']['Spin count']}} + 1
+    }),
+    false
+  );
+}  catch (e) {}
             }
             document.getElementById("rS").classList.add("on");
           } else {

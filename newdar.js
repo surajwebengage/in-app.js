@@ -103,6 +103,7 @@
     "last_spin_win - Spin Clicked",
     JSON.stringify({
       "Last win": 0
+               }),
     false
   );
 }  catch (e) {}

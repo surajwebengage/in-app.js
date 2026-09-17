@@ -102,8 +102,7 @@
   weNotification.trackEvent(
     "last_spin_win - Spin Clicked",
     JSON.stringify({
-      "Last win": 0,
-      "Spin count": {{ event['custom']['last_spin_win - Spin Clicked']['custom']['Spin count'] or 0 }} + 1
+      "Last win": 0
     false
   );
 }  catch (e) {}

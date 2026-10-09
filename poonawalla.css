@@ -1,24 +1,21 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
-  /* demo trigger, only visible after the popup has been closed */
-  .reopen {
-    position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
-    padding: 12px 22px; border: 0; border-radius: 999px; cursor: pointer;
-    background: #f4b63f; color: #0a1f4d; font: 700 14px 'Montserrat', sans-serif;
-  }
-
-  /* ---------- overlay ---------- */
-  .overlay {
-    position: fixed; inset: 0; z-index: 9999;
-    display: flex; align-items: center; justify-content: center;
-    padding: 12px;
-    background: rgba(2, 8, 30, .72);
-    -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px);
-  }
-  .overlay[hidden] { display: none; }
+ .add-to-cart-btn svg { stroke: #fff !important; }
+    .add-to-cart-btn svg[aria-hidden="true"] {
+display: block !important;
+}
 
   /* ---------- card ---------- */
+.modal-content {
+    margin-left: auto;
+    margin-right: auto;
+    width: 100% !important;
+}
   .card {
+    margin: 0 auto;
+position: relative;
+    top: 35px;
+width: 80% !important;
     position: relative;
     font-family: 'Montserrat', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
     color: #ffffff;
@@ -64,15 +61,6 @@
     position: absolute; left: 88.5%; top: 82.4%; width: 2.8%; height: 1.6%;
     background: rgb(5, 53, 138); filter: blur(1px);
   }
-
-  .close {
-    position: absolute; top: 20.3%; right: 4.2%;
-    width: 7cqw; height: 7cqw; border: 0; border-radius: 50%;
-    background: rgba(255, 255, 255, .16); color: #fff; cursor: pointer;
-    font-size: 5cqw; line-height: 1; display: flex; align-items: center; justify-content: center;
-    transition: background .2s;
-  }
-  .close:hover { background: rgba(255, 255, 255, .3); }
 
   /* ---------- content ---------- */
   .content {
@@ -137,15 +125,8 @@
   .help a { color: #f4b63f; font-weight: 700; text-decoration: none; }
   .help a:hover { text-decoration: underline; }
 
-  .tnc__head {
-    width: 100%; margin-top: 4.4cqw; padding: 0; border: 0; background: none; cursor: pointer;
-    display: flex; align-items: center; justify-content: space-between;
-    color: #ffffff; font: 700 3.3cqw 'Montserrat', sans-serif; text-align: left;
-  }
-  .tnc__head svg { width: 3.6cqw; height: 3.6cqw; fill: #f4b63f; transition: transform .25s; }
-  .tnc__head[aria-expanded="false"] svg { transform: rotate(180deg); }
+  .tnc__head { margin-top: 4.4cqw; color: #ffffff; font: 700 3.3cqw 'Montserrat', sans-serif; }
   .tnc__body { padding-bottom: 2cqw; }
-  .tnc__body[hidden] { display: none; }
 
   /* very short / landscape screens: let the card fill the height */
   @media (max-height: 520px) {

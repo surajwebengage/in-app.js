@@ -1,0 +1,149 @@
+
+  /* demo trigger, only visible after the popup has been closed */
+  .reopen {
+    position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    padding: 12px 22px; border: 0; border-radius: 999px; cursor: pointer;
+    background: var(--gold); color: var(--navy); font: 700 14px 'Montserrat', sans-serif;
+  }
+
+  /* ---------- overlay ---------- */
+  .overlay {
+    position: fixed; inset: 0; z-index: 9999;
+    display: flex; align-items: center; justify-content: center;
+    padding: 12px;
+    background: rgba(2, 8, 30, .72);
+    -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px);
+  }
+  .overlay[hidden] { display: none; }
+
+  /* ---------- card ---------- */
+  .card {
+    position: relative;
+    width: min(92vw, calc(88vh * var(--ratio)), 460px);
+    width: min(92vw, calc(88dvh * var(--ratio)), 460px);
+    aspect-ratio: 1232 / 1880;
+    container-type: inline-size;
+    animation: pop .45s cubic-bezier(.2, .9, .3, 1.2) both;
+  }
+  @keyframes pop {
+    from { opacity: 0; transform: translateY(24px) scale(.94); }
+    to   { opacity: 1; transform: none; }
+  }
+
+  .card__bg {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    object-fit: fill; pointer-events: none; user-select: none;
+  }
+
+  /* hides the baked-in placeholder brand logo + the baked-in arrow of the image */
+  .logo {
+    position: absolute; left: 50%; top: 31.14%;
+    width: 20cqw; height: 20cqw; transform: translate(-50%, -50%);
+    background: #fff; border-radius: 6.2cqw;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+  .logo img { width: 100%; height: 100%; object-fit: contain; display: block; }
+
+  /* CSS fallback for the 4700BC mark (used when no logo image is set) */
+  .logo__badge {
+    width: 84%; height: 84%; border-radius: 50%;
+    background: #111; border: .5cqw solid #c9a24a;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    line-height: 1; text-align: center;
+  }
+  .logo__badge b   { font-size: 4.6cqw; font-weight: 800; color: #fff; letter-spacing: -.1cqw; }
+  .logo__badge i   { font-size: 1.5cqw; font-style: normal; font-weight: 700; color: #c9a24a; align-self: flex-end; margin-right: 2.4cqw; }
+  .logo__badge span{ font-size: 1.6cqw; font-style: italic; font-weight: 600; color: #c9a24a; margin-top: .4cqw; }
+
+  .arrow-cover {
+    position: absolute; left: 88.5%; top: 82.4%; width: 2.8%; height: 1.6%;
+    background: rgb(5, 53, 138); filter: blur(1px);
+  }
+
+  .close {
+    position: absolute; top: 20.3%; right: 4.2%;
+    width: 7cqw; height: 7cqw; border: 0; border-radius: 50%;
+    background: rgba(255, 255, 255, .16); color: #fff; cursor: pointer;
+    font-size: 5cqw; line-height: 1; display: flex; align-items: center; justify-content: center;
+    transition: background .2s;
+  }
+  .close:hover { background: rgba(255, 255, 255, .3); }
+
+  /* ---------- content ---------- */
+  .content {
+    position: absolute; left: 8%; right: 8%; top: 38.2%; bottom: 6.5%;
+    display: flex; flex-direction: column; min-height: 0;
+  }
+
+  .fixed { flex: none; text-align: center; }
+
+  .title { font-size: 7.4cqw; font-weight: 700; line-height: 1.15; }
+  .won   { margin-top: 1.6cqw; font-size: 4.4cqw; font-weight: 500; color: var(--text-soft); line-height: 1.3; }
+  .offer { margin-top: .8cqw; font-size: 3.35cqw; font-weight: 500; color: rgba(255, 255, 255, .78); line-height: 1.35; }
+
+  .coupon {
+    margin-top: 3.6cqw;
+    display: flex; align-items: center; justify-content: space-between; gap: 2cqw;
+    padding: 2.2cqw 2.4cqw 2.2cqw 4.4cqw;
+    border: .25cqw dashed rgba(255, 255, 255, .7); border-radius: 6cqw;
+  }
+  .coupon__code {
+    font-size: 4.3cqw; font-weight: 700; color: var(--gold);
+    letter-spacing: .25cqw; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  }
+  .copy {
+    flex: none; border: 0; cursor: pointer; border-radius: 999px;
+    padding: 2.1cqw 4.2cqw; background: var(--gold); color: #1b1b1b;
+    font: 700 3.5cqw 'Montserrat', sans-serif; transition: background .2s, transform .1s;
+  }
+  .copy:hover  { background: var(--gold-dark); }
+  .copy:active { transform: scale(.96); }
+
+  /* ---------- scrollable area (everything below the copy-code box) ---------- */
+  .scroll {
+    flex: 1 1 auto; min-height: 0; margin-top: 3cqw;
+    overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch;
+    padding-right: 3.2cqw;
+    scrollbar-width: thin; scrollbar-color: #c99a49 rgba(255, 255, 255, .14);
+  }
+  .scroll::-webkit-scrollbar       { width: 1.6cqw; min-width: 5px; }
+  .scroll::-webkit-scrollbar-track { background: rgba(255, 255, 255, .14); border-radius: 99px; }
+  .scroll::-webkit-scrollbar-thumb { background: #c99a49; border-radius: 99px; }
+
+  .valid { font-size: 3.9cqw; font-weight: 600; line-height: 1.3; }
+
+  .redeem {
+    display: block; width: 100%; margin-top: 3.4cqw; padding: 3.1cqw 0;
+    border: 0; border-radius: 999px; cursor: pointer; text-align: center; text-decoration: none;
+    background: var(--gold); color: var(--navy);
+    font: 700 4.2cqw 'Montserrat', sans-serif; transition: background .2s, transform .1s;
+  }
+  .redeem:hover  { background: var(--gold-dark); }
+  .redeem:active { transform: scale(.98); }
+
+  .info h3 { margin-top: 4.4cqw; font-size: 3.3cqw; font-weight: 700; }
+  .info ul { margin: 1.8cqw 0 0 4.4cqw; }
+  .info li,
+  .info p  { font-size: 3.2cqw; line-height: 1.55; color: var(--text-soft); font-weight: 500; }
+  .info li { margin-top: 1.2cqw; }
+  .info p  { margin-top: 1.8cqw; }
+
+  .help { margin-top: 4.2cqw; font-size: 3.9cqw; line-height: 1.45; color: var(--text-soft); font-weight: 500; }
+  .help a { color: var(--gold); font-weight: 700; text-decoration: none; }
+  .help a:hover { text-decoration: underline; }
+
+  .tnc__head {
+    width: 100%; margin-top: 4.4cqw; padding: 0; border: 0; background: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: space-between;
+    color: var(--text); font: 700 3.3cqw 'Montserrat', sans-serif; text-align: left;
+  }
+  .tnc__head svg { width: 3.6cqw; height: 3.6cqw; fill: var(--gold); transition: transform .25s; }
+  .tnc__head[aria-expanded="false"] svg { transform: rotate(180deg); }
+  .tnc__body { padding-bottom: 2cqw; }
+  .tnc__body[hidden] { display: none; }
+
+  /* very short / landscape screens: let the card fill the height */
+  @media (max-height: 520px) {
+    .card { width: min(92vw, calc(96vh * var(--ratio)), 460px); width: min(92vw, calc(96dvh * var(--ratio)), 460px); }
+  }
